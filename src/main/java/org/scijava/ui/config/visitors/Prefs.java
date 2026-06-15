@@ -1,10 +1,17 @@
 package org.scijava.ui.config.visitors;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.scijava.prefs.DefaultPrefService;
 import org.scijava.ui.config.Configurator;
+import org.scijava.ui.config.Configurator.SelectableParameters;
+import org.scijava.ui.config.ParameterVisitor;
+import org.scijava.ui.config.Parameters.BooleanParam;
+import org.scijava.ui.config.Parameters.ChoiceParam;
+import org.scijava.ui.config.Parameters.DoubleParam;
+import org.scijava.ui.config.Parameters.EnumParam;
+import org.scijava.ui.config.Parameters.IntParam;
+import org.scijava.ui.config.Parameters.Parameter;
+import org.scijava.ui.config.Parameters.PathParam;
+import org.scijava.ui.config.Parameters.StringParam;
 
 /**
  * Serializes and deserializes Configurator values to and from a PrefService.
@@ -22,34 +29,13 @@ public class Prefs
 	 */
 	public static < C extends Configurator > void serialize( final C config )
 	{
-		final DefaultPrefService prefs = new DefaultPrefService();
-		Maps.toMap( config ).forEach( ( k, v ) -> {
-			final Class< ? extends Object > valClass = v.getClass();
-			if ( Double.class.isAssignableFrom( valClass ) || Float.class.isAssignableFrom( valClass ) )
-			{
-				prefs.put( config.getClass(), k, ( ( Number ) v ).doubleValue() );
-			}
-			else if ( Integer.class.isAssignableFrom( valClass ) )
-			{
-				prefs.put( config.getClass(), k, ( ( Number ) v ).intValue() );
-			}
-			else if ( Boolean.class.isAssignableFrom( valClass ) )
-			{
-				prefs.put( config.getClass(), k, ( Boolean ) v );
-			}
-			else if ( String.class.isAssignableFrom( valClass ) )
-			{
-				prefs.put( config.getClass(), k, ( String ) v );
-			}
-			else if ( Enum.class.isAssignableFrom( valClass ) )
-			{
-				prefs.put( config.getClass(), k, ( ( Enum< ? > ) v ).name() );
-			}
-		} );
+		final PrefSerializeVisitor< C > visitor = new PrefSerializeVisitor<>( config );
+		config.getParameters().forEach( p -> p.accept( visitor ) );
+		config.getSelectables().forEach( s -> s.accept( visitor ) );
 	}
 
 	/**
-	 * Reloads the values of the specified Configurator from the PrefService,.
+	 * Reloads the values of the specified Configurator from the PrefService.
 	 * 
 	 * @param <C>
 	 *            the type of the Configurator to deserialize.
@@ -58,53 +44,149 @@ public class Prefs
 	 */
 	public static < C extends Configurator > void deserialize( final C config )
 	{
-		final DefaultPrefService prefs = new DefaultPrefService();
-		final Map< String, Object > map = new HashMap<>();
-		Maps.toMap( config ).forEach( ( k, v ) -> {
-			if ( v == null )
+		final PrefDeserializeVisitor< C > visitor = new PrefDeserializeVisitor<>( config );
+		config.getParameters().forEach( p -> p.accept( visitor ) );
+		config.getSelectables().forEach( s -> s.accept( visitor ) );
+	}
+
+	private static class PrefSerializeVisitor< C extends Configurator > implements ParameterVisitor
+	{
+		private final DefaultPrefService prefs;
+
+		private final C config;
+
+		public PrefSerializeVisitor( final C config )
+		{
+			this.config = config;
+			this.prefs = new DefaultPrefService();
+		}
+
+		@Override
+		public < E extends Enum< E > > void visit( final EnumParam< E > enumParam )
+		{
+			prefs.put( config.getClass(), enumParam.getKey(), enumParam.getValue().name() );
+		}
+
+		@Override
+		public void visit( final BooleanParam booleanParam )
+		{
+			prefs.put( config.getClass(), booleanParam.getKey(), booleanParam.getValue() );
+		}
+
+		@Override
+		public void visit( final DoubleParam doubleParam )
+		{
+			prefs.put( config.getClass(), doubleParam.getKey(), doubleParam.getValue() );
+		}
+
+		@Override
+		public void visit( final IntParam intParam )
+		{
+			prefs.put( config.getClass(), intParam.getKey(), intParam.getValue() );
+		}
+
+		@Override
+		public void visit( final ChoiceParam choiceParam )
+		{
+			prefs.put( config.getClass(), choiceParam.getKey(), choiceParam.getValue() );
+		}
+
+		@Override
+		public void visit( final StringParam stringParam )
+		{
+			prefs.put( config.getClass(), stringParam.getKey(), stringParam.getValue() );
+		}
+
+		@Override
+		public void visit( final PathParam pathParam )
+		{
+			prefs.put( config.getClass(), pathParam.getKey(), pathParam.getValue() );
+		}
+
+		@Override
+		public void visit( final SelectableParameters selectable )
+		{
+			prefs.put( config.getClass(), selectable.getKey(), selectable.getSelection().getKey() );
+		}
+	}
+
+	private static class PrefDeserializeVisitor< C extends Configurator > implements ParameterVisitor
+	{
+		private final DefaultPrefService prefs;
+
+		private final C config;
+
+		public PrefDeserializeVisitor( final C config )
+		{
+			this.config = config;
+			this.prefs = new DefaultPrefService();
+		}
+
+		@Override
+		public < E extends Enum< E > > void visit( final EnumParam< E > enumParam )
+		{
+			final String str = prefs.get( config.getClass(), enumParam.getKey() );
+			if ( str == null )
+				return; // no value saved for this parameter, skip it
+			try
 			{
-				System.err.println( "Warning: For cconfig " + config.getClass() + ", parameter " + k + " has null default value, skipping it." );
-				return; // no default value, skip it
+				@SuppressWarnings( { "unchecked", "rawtypes" } )
+				final E enumVal = ( E ) Enum.valueOf( ( Class< ? extends Enum > ) enumParam.getEnumClass(), str );
+				enumParam.set( enumVal );
 			}
-			final Class< ? extends Object > valClass = v.getClass();
-			if ( Double.class.isAssignableFrom( valClass ) || Float.class.isAssignableFrom( valClass ) )
+			catch ( final IllegalArgumentException exc )
 			{
-				map.put( k, prefs.getDouble( config.getClass(), k, ( ( Number ) v ).doubleValue() ) );
+				System.err.println( "Couldn't parse enum value " + str + " for parameter " + enumParam.getKey() + " of type " + enumParam.getEnumClass().getName() );
+				exc.printStackTrace();
 			}
-			else if ( Integer.class.isAssignableFrom( valClass ) )
-			{
-				map.put( k, prefs.getInt( config.getClass(), k, ( ( Number ) v ).intValue() ) );
-			}
-			else if ( Boolean.class.isAssignableFrom( valClass ) )
-			{
-				map.put( k, prefs.getBoolean( config.getClass(), k, ( Boolean ) v ) );
-			}
-			else if ( String.class.isAssignableFrom( valClass ) )
-			{
-				map.put( k, prefs.get( config.getClass(), k, ( String ) v ) );
-			}
-			else if ( Enum.class.isAssignableFrom( valClass ) )
-			{
-				final String str = prefs.get( config.getClass(), k );
-				if ( str == null )
-					return; // no value saved for this parameter, skip it
-				try
-				{
-					@SuppressWarnings( { "unchecked", "rawtypes" } )
-					final Object enumVal = Enum.valueOf( ( Class< ? extends Enum > ) valClass, str );
-					map.put( k, enumVal );
-				}
-				catch ( final IllegalArgumentException exc )
-				{
-					System.err.println( "Couldn't parse enum value " + str + " for parameter " + k + " of type " + valClass.getName() );
-					exc.printStackTrace();
-				}
-			}
-			else
-			{
-				System.err.println( "Don't know how to reload parameter " + k + " of type " + valClass.getName() );
-			}
-		} );
-		Maps.fromMap( map, config );
+		}
+
+		@Override
+		public void visit( final BooleanParam booleanParam )
+		{
+			booleanParam.set( prefs.getBoolean( config.getClass(), booleanParam.getKey(), booleanParam.getDefaultValue() ) );
+		}
+
+		@Override
+		public void visit( final DoubleParam doubleParam )
+		{
+			doubleParam.set( prefs.getDouble( config.getClass(), doubleParam.getKey(), doubleParam.getDefaultValue() ) );
+		}
+
+		@Override
+		public void visit( final IntParam intParam )
+		{
+			intParam.set( prefs.getInt( config.getClass(), intParam.getKey(), intParam.getDefaultValue() ) );
+		}
+
+		private void visitStringParam( final Parameter< ?, String > param )
+		{
+			param.set( prefs.get( config.getClass(), param.getKey(), param.getDefaultValue() ) );
+		}
+
+		@Override
+		public void visit( final ChoiceParam choiceParam )
+		{
+			visitStringParam( choiceParam );
+		}
+
+		@Override
+		public void visit( final StringParam stringParam )
+		{
+			visitStringParam( stringParam );
+		}
+
+		@Override
+		public void visit( final PathParam pathParam )
+		{
+			visitStringParam( pathParam );
+		}
+
+		@Override
+		public void visit( final SelectableParameters selectable )
+		{
+			final String defaultSelection = selectable.getParameters().get( 0 ).getKey();
+			selectable.select( prefs.get( config.getClass(), selectable.getKey(), defaultSelection ) );
+		}
 	}
 }
