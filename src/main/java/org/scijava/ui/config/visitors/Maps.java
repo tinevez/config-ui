@@ -21,16 +21,8 @@ public class Maps
 	public static Map< String, Object > toMap( final Configurator config )
 	{
 		final Map< String, Object > map = new LinkedHashMap<>();
-		for ( final Parameter< ?, ? > param : config )
-		{
-			final String key = param.getKey();
-			map.put( key, param.getValue() );
-		}
-		for ( final SelectableParameters selectable : config.getSelectables() )
-		{
-			final String key = selectable.getKey();
-			map.put( key, selectable.getSelection().getKey() );
-		}
+		config.forEach( p -> map.put( p.getKey(), p.getValue() ) );
+		config.getSelectables().forEach( s -> map.put( s.getKey(), s.getSelection().getKey() ) );
 		return map;
 	}
 
