@@ -1,5 +1,6 @@
 package org.scijava.ui.config;
 
+import org.scijava.ui.config.Configurator.SelectableParameters;
 import org.scijava.ui.config.Parameters.BooleanParam;
 import org.scijava.ui.config.Parameters.ChoiceParam;
 import org.scijava.ui.config.Parameters.DoubleParam;
@@ -13,27 +14,27 @@ import org.scijava.ui.config.Parameters.StringParam;
  */
 public interface ParameterVisitor
 {
-	public default void visit( final BooleanParam flag )
+	public default void visit( final BooleanParam booleanParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final StringParam stringArgument )
+	public default void visit( final StringParam stringParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final DoubleParam doubleArgument )
+	public default void visit( final DoubleParam doubleParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final IntParam intArgument )
+	public default void visit( final IntParam intParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final ChoiceParam choiceArgument )
+	public default void visit( final ChoiceParam choiceParam )
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -43,7 +44,12 @@ public interface ParameterVisitor
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final PathParam pathArgument )
+	public default void visit( final PathParam pathParam )
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	public default void visit( final SelectableParameters selectable )
 	{
 		throw new UnsupportedOperationException();
 	}

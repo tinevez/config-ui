@@ -249,6 +249,11 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		{
 			return params;
 		}
+
+		public void accept( final ParameterVisitor visitor )
+		{
+			visitor.visit( this );
+		}
 	}
 
 	/*
