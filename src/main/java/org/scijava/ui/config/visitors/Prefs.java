@@ -61,6 +61,11 @@ public class Prefs
 		final DefaultPrefService prefs = new DefaultPrefService();
 		final Map< String, Object > map = new HashMap<>();
 		Maps.toMap( config ).forEach( ( k, v ) -> {
+			if ( v == null )
+			{
+				System.err.println( "Warning: For cconfig " + config.getClass() + ", parameter " + k + " has null default value, skipping it." );
+				return; // no default value, skip it
+			}
 			final Class< ? extends Object > valClass = v.getClass();
 			if ( Double.class.isAssignableFrom( valClass ) || Float.class.isAssignableFrom( valClass ) )
 			{
