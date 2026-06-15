@@ -39,7 +39,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * Contains Parameters and ParameterGroups in the order they were added, for
 	 * UI display.
 	 */
-	final List< Object > orderedElements = new ArrayList<>();
+	protected final List< Object > orderedElements = new ArrayList<>();
 
 	protected final List< SelectableParameters > selectables = new ArrayList<>();
 
@@ -689,6 +689,10 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		public EnumParam< E > get()
 		{
 			check();
+
+			if ( null == defaultValue )
+				defaultValue = enumClass.getEnumConstants()[ 0 ];
+
 			final EnumParam< E > arg = new EnumParam<>( enumClass )
 					.name( name )
 					.help( help )
