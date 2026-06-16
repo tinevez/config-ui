@@ -100,6 +100,7 @@ public final class FrameBuilder< C extends Configurator >
 		frame.add( south, BorderLayout.PAGE_END );
 
 		frame.pack();
+		frame.setIconImages( config.getIcons() );
 		frame.setLocationByPlatform( true );
 	}
 

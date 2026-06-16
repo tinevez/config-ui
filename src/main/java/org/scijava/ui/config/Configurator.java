@@ -1,5 +1,6 @@
 package org.scijava.ui.config;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -68,6 +69,13 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 */
 	protected String help;
 
+	/**
+	 * The list of icons to use in the UI. The first icon will be used as the
+	 * main icon, and the others will be used as alternative icons for different
+	 * sizes.
+	 */
+	protected final List< Image > icons = new ArrayList<>();
+
 	/*
 	 * CONSTRUCTOR
 	 */
@@ -90,6 +98,29 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	public String getHelp()
 	{
 		return help;
+	}
+
+	/**
+	 * Returns the main icon to use in a UI. If no icon was set, returns
+	 * <code>null</code>.
+	 *
+	 * @return the main icon.
+	 */
+	public Image getIcon()
+	{
+		return icons.isEmpty() ? null : icons.get( 0 );
+	}
+
+	/**
+	 * Returns the list of icons to use in a UI. The first icon will be used as
+	 * the main icon, and the others will be used as alternative icons for
+	 * different sizes.
+	 *
+	 * @return the list of icons. May be empty if no icon was set.
+	 */
+	public List< Image > getIcons()
+	{
+		return icons;
 	}
 
 	/**
@@ -867,6 +898,19 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	protected GroupAdder addGroup( final String name )
 	{
 		return new GroupAdder().name( name );
+	}
+
+	/**
+	 * Adds an icon to the list of icons to use in a UI. The first icon will be
+	 * used as the main icon, and the others will be used as alternative icons
+	 * for different sizes.
+	 *
+	 * @param icon
+	 *            the icon to add.
+	 */
+	protected void addIcon( final Image icon )
+	{
+		icons.add( icon );
 	}
 
 	@Override
