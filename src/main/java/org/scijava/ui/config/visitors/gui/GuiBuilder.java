@@ -75,7 +75,6 @@ import org.scijava.ui.config.Parameters.IntParam;
 import org.scijava.ui.config.Parameters.Parameter;
 import org.scijava.ui.config.Parameters.PathParam;
 import org.scijava.ui.config.Parameters.StringParam;
-import org.scijava.ui.config.utils.CollapsibleSection;
 import org.scijava.ui.config.utils.FileChooser;
 import org.scijava.ui.config.utils.FileChooser.DialogType;
 import org.scijava.ui.config.visitors.gui.elements.BoundedValue;
@@ -620,6 +619,7 @@ public class GuiBuilder implements ParameterVisitor
 		lbl.setText( lbl.getText() + " " );
 		lbl.setFont( SMALL_FONT );
 		lbl.setHorizontalAlignment( JLabel.RIGHT );
+
 		comp.setFont( SMALL_FONT );
 
 		final JComponent header;
@@ -751,13 +751,13 @@ public class GuiBuilder implements ParameterVisitor
 	 * Creates and returns a basic {@link ConfigPanel} for the specified
 	 * {@link Configurator}. The panel UI elements will <i>modify</i> the values
 	 * of the parameters in the config.
-	 * 
+	 *
 	 * <p>
 	 * The panel will contain only the UI elements corresponding to the
 	 * {@link Parameters} in the Configurator that are
 	 * {@link Parameter#isVisible()}, using the default Swing look and feel.
 	 * There is no title nor help.
-	 * 
+	 *
 	 * @param config
 	 * @return
 	 */
