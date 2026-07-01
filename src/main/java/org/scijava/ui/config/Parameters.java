@@ -110,7 +110,7 @@ public class Parameters
 		 * Sets the String key to of this parameter, which will be used mainly
 		 * for de / serialization purposes. The key must be unique within a
 		 * config.
-		 * 
+		 *
 		 *
 		 * @param key
 		 *            the key to use.
@@ -208,7 +208,7 @@ public class Parameters
 
 	/**
 	 * Base class for parameters that use a string as internal value.
-	 * 
+	 *
 	 * @param <T>
 	 *            the type of the parameter, used for chaining builders.
 	 */
@@ -285,6 +285,8 @@ public class Parameters
 
 		public int getSelectedIndex()
 		{
+			if ( selected < 0 )
+				return choices.indexOf( getDefaultValue() );
 			return selected;
 		}
 
@@ -302,8 +304,8 @@ public class Parameters
 		{
 			if ( selected < 0 || selected >= choices.size() )
 				throw new IllegalArgumentException( "Invalid index for selection of parameter '"
-						+ name + "'. Must be in scale " + 0 + " to " + ( choices.size() - 1 ) + " in "
-						+ StringUtils.join( choices, ", " ) + "." );
+						+ name + "'. Must be in scale " + 0 + " to " + ( choices.size() - 1 ) + " (among "
+						+ StringUtils.join( choices, ", " ) + "), but was " + selected );
 			this.selected = selected;
 		}
 
@@ -363,7 +365,7 @@ public class Parameters
 	/**
 	 * Base class for parameters that accept values that can be bounded by a min
 	 * and max.
-	 * 
+	 *
 	 * @param <T>
 	 *            the implementing type of the parameter.
 	 * @param <O>
