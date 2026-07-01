@@ -83,9 +83,6 @@
 		<scijava.jvm.version>21</scijava.jvm.version>
 		<scijava.jvm.build.version>[21,)</scijava.jvm.build.version>
 
-		<!-- Appose version to use -> used for the listener -->
-		<appose.version>0.11.0</appose.version>
-
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>sign,deploy-to-scijava</releaseProfiles>
 	</properties>
@@ -97,14 +94,6 @@
 			<groupId>org.scijava</groupId>
 			<artifactId>scijava-common</artifactId>
 		</dependency>
-		
-		<!-- Appose -> used for the listener -->
-		<dependency>
-			<groupId>org.apposed</groupId>
-			<artifactId>appose</artifactId>
-			<version>${appose.version}</version>
-		</dependency>
-
 
 		<!-- Test dependencies -->
 		<dependency>
