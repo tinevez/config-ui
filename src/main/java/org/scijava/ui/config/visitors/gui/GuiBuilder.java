@@ -906,5 +906,10 @@ public class GuiBuilder implements ParameterVisitor
 		{
 			elements.values().forEach( e -> e.update() );
 		}
+
+		public StyleElement getStyleElement( final String key )
+		{
+			return elements.get( key );
+		}
 	}
 }
