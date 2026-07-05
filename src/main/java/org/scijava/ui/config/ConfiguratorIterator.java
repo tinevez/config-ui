@@ -14,12 +14,12 @@ public class ConfiguratorIterator implements Iterator< Parameter< ?, ? > >
 	private final Iterator< Object > mainIterator;
 
 	// Iteration state for the group we are currently reading "next" from
-	private ParameterGroup currentGroup; // group for upcoming parameters (if
-											// any)
 
-	private Iterator< Parameter< ?, ? > > currentGroupIterator; // iterator over
-																// that group's
-																// parameters
+	// group for upcoming parameters (if any)
+	private ParameterGroup currentGroup;
+
+	// iterator over that group'sparameters
+	private Iterator< Parameter< ?, ? > > currentGroupIterator;
 
 	// Prepared next parameter and its group-position flags
 	private Parameter< ?, ? > nextParameter;

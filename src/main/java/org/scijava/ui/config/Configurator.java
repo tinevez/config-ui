@@ -32,17 +32,17 @@ import org.scijava.ui.config.utils.StringUtils;
 public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 {
 
-	protected final List< Parameter< ?, ? > > params = new ArrayList<>();
+	private final List< Parameter< ?, ? > > params = new ArrayList<>();
 
-	protected final List< ParameterGroup > groups = new ArrayList<>();
+	private final List< ParameterGroup > groups = new ArrayList<>();
 
 	/**
 	 * Contains Parameters and ParameterGroups in the order they were added, for
 	 * UI display.
 	 */
-	protected final List< Object > orderedElements = new ArrayList<>();
+	final List< Object > orderedElements = new ArrayList<>();
 
-	protected final List< SelectableParameters > selectables = new ArrayList<>();
+	private final List< SelectableParameters > selectables = new ArrayList<>();
 
 	/**
 	 * The translators that will be applied to the value before displaying it in
@@ -124,9 +124,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	}
 
 	/**
-	 * Returns the list of parameters (plus the command) in this config. All
-	 * parameters are present, regardless of whether they are in
-	 * {@link SelectableParameters}, {@link Parameter#visible} or not.
+	 * Returns the list of parameters in this config. All parameters are
+	 * present, regardless of whether they are in {@link SelectableParameters},
+	 * {@link Parameter#visible} or not.
 	 *
 	 * @return the list of parameters.
 	 */
@@ -952,7 +952,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * Warning: display translation is not supported for {@link BooleanParam}
 	 * and {@link ChoiceParam}.
 	 *
-	 * @param arg
+	 * @param param
 	 *            the parameter to decorate.
 	 * @param forward
 	 *            the function to apply to the value to display it in the UI.
@@ -962,15 +962,33 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * @param <O>
 	 *            the type of value the parameter accepts.
 	 */
-	protected < O > void setDisplayTranslator( final Parameter< ?, O > arg, final Function< O, O > forward, final Function< O, O > backward )
+	protected < O > void setDisplayTranslator( final Parameter< ?, O > param, final Function< O, O > forward, final Function< O, O > backward )
 	{
-		if ( arg instanceof ChoiceParam )
+		if ( param instanceof ChoiceParam )
 			throw new IllegalArgumentException( "ChoiceParam does not support display translators." );
-		if ( arg instanceof BooleanParam )
+		if ( param instanceof BooleanParam )
 			throw new IllegalArgumentException( "BooleanParam does not support display translators." );
 
-		forwardUITranslators.put( arg, forward );
-		backwardUITranslators.put( arg, backward );
+		forwardUITranslators.put( param, forward );
+		backwardUITranslators.put( param, backward );
+	}
+
+	/**
+	 * Reorder the specified parameter, to appear at the specified index in the
+	 * list of parameters. This is used to control the order of parameters in
+	 * the UI and in the iteration order. The index is 0-based, and must be
+	 * between 0 and the number of parameters - 1.
+	 * 
+	 * @param param
+	 *            the parameter to reorder.
+	 * @param index
+	 *            the index at which to place the parameter in the list of
+	 *            parameters.
+	 */
+	protected void reorder( final Parameter< ?, ? > param, final int index )
+	{
+		orderedElements.remove( param );
+		orderedElements.add( index, param );
 	}
 
 	@Override
