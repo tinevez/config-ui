@@ -117,6 +117,7 @@ public class CollapsibleSection extends JPanel
 					title, TitledBorder.LEFT, TitledBorder.TOP, font, null );
 			this.baseTitle = title;
 			this.expanded = expanded;
+			setTitleColor( Color.GRAY );
 			updateTitle();
 		}
 
