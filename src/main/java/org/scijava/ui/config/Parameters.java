@@ -34,6 +34,8 @@ public class Parameters
 
 		private String units;
 
+		private UpdateListener updateListener;
+
 		T units( final String units )
 		{
 			this.units = units;
@@ -58,7 +60,11 @@ public class Parameters
 
 		public void set( final O value )
 		{
-			this.value = value;
+			if ( value == null && this.value != null || value != null && this.value == null || !value.equals( this.value ) )
+			{
+				this.value = value;
+				notifyUpdateListener();
+			}
 		}
 
 		/**
@@ -123,6 +129,18 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		T updateListener( final UpdateListener updateListener )
+		{
+			this.updateListener = updateListener;
+			return ( T ) this;
+		}
+
+		protected void notifyUpdateListener()
+		{
+			if ( updateListener != null )
+				updateListener.parameterUpdated();
+		}
+
 		public String getName()
 		{
 			return name;
@@ -168,7 +186,11 @@ public class Parameters
 		 */
 		public void set()
 		{
-			set( true );
+			if ( getValue() == null || !getValue() )
+			{
+				set( true );
+				notifyUpdateListener();
+			}
 		}
 
 		@Override
@@ -297,7 +319,12 @@ public class Parameters
 			if ( sel < 0 )
 				throw new IllegalArgumentException( "Unknown selection '" + choice + "' for parameter '"
 						+ name + "'. Must be one of: [ " + StringUtils.join( choices, ", " ) + " ]." );
-			this.selected = sel;
+
+			if ( sel != selected )
+			{
+				this.selected = sel;
+				notifyUpdateListener();
+			}
 		}
 
 		public void set( final int selected )
@@ -306,7 +333,11 @@ public class Parameters
 				throw new IllegalArgumentException( "Invalid index for selection of parameter '"
 						+ name + "'. Must be in scale " + 0 + " to " + ( choices.size() - 1 ) + " (among "
 						+ StringUtils.join( choices, ", " ) + "), but was " + selected );
-			this.selected = selected;
+			if ( selected != this.selected )
+			{
+				this.selected = selected;
+				notifyUpdateListener();
+			}
 		}
 
 		@Override
@@ -439,5 +470,10 @@ public class Parameters
 							? " - max: " + getMax() + "\n"
 							: "" );
 		}
+	}
+
+	public static interface UpdateListener
+	{
+		void parameterUpdated();
 	}
 }

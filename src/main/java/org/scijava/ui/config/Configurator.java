@@ -20,6 +20,7 @@ import org.scijava.ui.config.Parameters.IntParam;
 import org.scijava.ui.config.Parameters.Parameter;
 import org.scijava.ui.config.Parameters.PathParam;
 import org.scijava.ui.config.Parameters.StringParam;
+import org.scijava.ui.config.Parameters.UpdateListener;
 import org.scijava.ui.config.utils.StringUtils;
 
 /**
@@ -378,6 +379,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 
 		protected boolean visible = true; // by default
 
+		protected UpdateListener updateListener = null;
+
 		/**
 		 * Specifies units for values accepted by this parameter.
 		 *
@@ -431,6 +434,12 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			this.defaultValue = defaultValue;
 			return ( T ) this;
 		}
+
+		public T updateListener( final UpdateListener updateListener )
+		{
+			this.updateListener = updateListener;
+			return ( T ) this;
+		}
 	}
 
 	@SuppressWarnings( "unchecked" )
@@ -482,7 +491,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.min( min )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			Configurator.this.params.add( arg );
 			Configurator.this.orderedElements.add( arg );
 			return arg;
@@ -506,7 +516,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.min( min )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			Configurator.this.params.add( arg );
 			Configurator.this.orderedElements.add( arg );
 			return arg;
@@ -529,7 +540,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.defaultValue( defaultValue )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			Configurator.this.params.add( arg );
 			Configurator.this.orderedElements.add( arg );
 			return arg;
@@ -552,7 +564,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.defaultValue( defaultValue )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			Configurator.this.params.add( arg );
 			Configurator.this.orderedElements.add( arg );
 			return arg;
@@ -575,7 +588,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.defaultValue( defaultValue )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			Configurator.this.params.add( arg );
 			Configurator.this.orderedElements.add( arg );
 			return arg;
@@ -700,7 +714,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.help( help )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			for ( int i = 0; i < choices.size(); i++ )
 				arg.addChoice( choices.get( i ), mappeds.get( i ) );
 
@@ -735,7 +750,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 					.defaultValue( defaultValue )
 					.units( units )
 					.visible( visible )
-					.key( key );
+					.key( key )
+					.updateListener( updateListener );
 			Configurator.this.params.add( arg );
 			Configurator.this.orderedElements.add( arg );
 			return arg;
