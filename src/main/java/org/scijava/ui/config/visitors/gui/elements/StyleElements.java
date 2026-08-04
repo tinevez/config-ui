@@ -887,6 +887,10 @@ public class StyleElements
 		final JSpinner spinner = new JSpinner( model );
 		spinner.setMaximumSize( new Dimension( 80, spinner.getMaximumSize().height ) );
 		model.addChangeListener( e -> element.set( ( ( Number ) model.getValue() ).intValue() ) );
+		value.setUpdateListener( () -> {
+			if ( value.getCurrentValue() != ( ( Number ) model.getValue() ).intValue() )
+				model.setValue( value.getCurrentValue() );
+		} );
 		return spinner;
 	}
 
