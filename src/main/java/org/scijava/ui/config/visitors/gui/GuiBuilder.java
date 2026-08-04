@@ -214,6 +214,7 @@ public class GuiBuilder implements ParameterVisitor
 			final int min = forward.apply( tmin );
 			final int max = forward.apply( tmax );
 			final IntElement element = intElement( arg.getName(), min, max, valueGetter, valueSetter );
+			panel.elements.put( arg.getKey(), element );
 			comp = linkedSpinner( element );
 		}
 		addToLayout(
