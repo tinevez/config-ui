@@ -95,6 +95,12 @@
 			<artifactId>scijava-common</artifactId>
 		</dependency>
 
+		<!-- To de/serialize Json -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
