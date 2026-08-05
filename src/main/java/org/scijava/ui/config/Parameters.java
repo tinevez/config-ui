@@ -34,7 +34,7 @@ public class Parameters
 
 		private String units;
 
-		private UpdateListener updateListener;
+		private transient UpdateListener updateListener;
 
 		T units( final String units )
 		{
