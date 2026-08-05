@@ -1,0 +1,55 @@
+package org.scijava.ui.config.visitors;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.scijava.ui.config.Cellpose3BuiltinModels;
+import org.scijava.ui.config.Cellpose3Config;
+
+public class JSonTest
+{
+
+	// Use a temporary folder for testing
+	@org.junit.Rule
+	public TemporaryFolder tempFolder = new TemporaryFolder();
+
+	@Test
+	public void test() throws IOException
+	{
+		final int nChannels = 100;
+
+		final Cellpose3Config original = new Cellpose3Config( nChannels, 0.5, "um" );
+		original.builtinModel().set( Cellpose3BuiltinModels.NUCLEI );
+		original.builtinOrCustom().select( original.customModel() );
+		original.customModel().set( "TROLOLO path" );
+		original.chan1().set( 11 );
+		original.chan2().set( 22 );
+		original.diameter().set( 33. );
+		original.flowThreshold().set( 0.005 );
+		original.cellprobThreshold().set( .15 );
+		original.exportFlows().set( true );
+		original.exportLabels().set( false );
+		original.exportROIs().set( true );
+
+		final String targetPath = tempFolder.newFile( "test.json" ).getAbsolutePath();
+		JSon.serialize( targetPath, original );
+		final Cellpose3Config deserialized = new Cellpose3Config( nChannels, 0.5, "um" );
+		JSon.deserialize( targetPath, deserialized );
+
+		// Test for equality of parameter values
+		final Map< String, Object > originalParameters = new HashMap<>();
+		original.forEach( p -> originalParameters.put( p.getKey(), p.getValue() ) );
+		original.getSelectables().forEach( s -> originalParameters.put( s.getKey(), s.getSelection().getKey() ) );
+
+		final Map< String, Object > deserializedParameters = new HashMap<>();
+		deserialized.forEach( p -> deserializedParameters.put( p.getKey(), p.getValue() ) );
+		deserialized.getSelectables().forEach( s -> deserializedParameters.put( s.getKey(), s.getSelection().getKey() ) );
+		
+		assertThat( deserializedParameters ).containsExactlyInAnyOrderEntriesOf( originalParameters );
+	}
+}
