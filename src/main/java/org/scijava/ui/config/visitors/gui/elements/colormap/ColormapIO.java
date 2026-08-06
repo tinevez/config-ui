@@ -29,7 +29,7 @@ public class ColormapIO
 	{
 		try
 		{
-			final URI BUILTIN_LUT_FOLDER = ColormapIO.class.getResource( "/luts/" ).toURI();
+			final URI BUILTIN_LUT_FOLDER = ColormapIO.class.getResource( "/luts" ).toURI();
 			LUT_FOLDERS.add( BUILTIN_LUT_FOLDER );
 		}
 		catch ( final URISyntaxException e )
@@ -94,8 +94,8 @@ public class ColormapIO
 					final Colormap lut = importLUT( path );
 					if ( null == lut )
 						System.err.println( "Could not read LUT file: " + path + ". Skipping." );
-
-					luts.add( lut );
+					else
+						luts.add( lut );
 				}
 			}
 		}
