@@ -79,6 +79,7 @@ import org.scijava.ui.config.utils.FileChooser;
 import org.scijava.ui.config.utils.FileChooser.DialogType;
 import org.scijava.ui.config.visitors.gui.elements.BoundedValue;
 import org.scijava.ui.config.visitors.gui.elements.BoundedValue.UpdateListener;
+import org.scijava.ui.config.visitors.gui.elements.StyleElement;
 import org.scijava.ui.config.visitors.gui.elements.StyleElements.BooleanElement;
 import org.scijava.ui.config.visitors.gui.elements.StyleElements.BoundedDoubleElement;
 import org.scijava.ui.config.visitors.gui.elements.StyleElements.DoubleElement;
@@ -86,7 +87,6 @@ import org.scijava.ui.config.visitors.gui.elements.StyleElements.EnumElement;
 import org.scijava.ui.config.visitors.gui.elements.StyleElements.IntElement;
 import org.scijava.ui.config.visitors.gui.elements.StyleElements.ListElement;
 import org.scijava.ui.config.visitors.gui.elements.StyleElements.StringElement;
-import org.scijava.ui.config.visitors.gui.elements.StyleElements.StyleElement;
 
 /**
  * Creates a Swing {@link JPanel} that can edit the values of the parameters in
