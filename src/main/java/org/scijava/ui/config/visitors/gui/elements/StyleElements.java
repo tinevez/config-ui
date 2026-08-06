@@ -2,10 +2,12 @@ package org.scijava.ui.config.visitors.gui.elements;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -42,9 +44,12 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.drjekyll.fontchooser.FontDialog;
 import org.scijava.ui.config.utils.GuiUtils;
+import org.scijava.ui.config.utils.Icons;
 import org.scijava.ui.config.visitors.gui.elements.colormap.Colormap;
 
 public class StyleElements
@@ -288,6 +293,11 @@ public class StyleElements
 		}
 
 		public default < E > void visit( final ListElement< E > listElement )
+		{
+			throw new UnsupportedOperationException();
+		}
+
+		public default void visit( final FontElement element )
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -736,6 +746,53 @@ public class StyleElements
 		}
 	}
 
+	public static abstract class FontElement implements StyleElement
+	{
+
+		private final ArrayList< Consumer< Font > > onSet = new ArrayList<>();
+
+		private Font value;
+
+		private final String label;
+
+		public FontElement( final String label )
+		{
+			this.label = label;
+		}
+
+		public Font getValue()
+		{
+			return value;
+		}
+
+		public String getLabel()
+		{
+			return label;
+		}
+
+		@Override
+		public void accept( final StyleElementVisitor visitor )
+		{
+			visitor.visit( this );
+		}
+
+		public abstract Font get();
+
+		public abstract void set( Font font );
+
+		public void onSet( final Consumer< Font > set )
+		{
+			onSet.add( set );
+		}
+
+		@Override
+		public void update()
+		{
+			if ( get() != value )
+				value = get();
+		}
+	}
+
 	/*
 	 *
 	 * ===============================================================
@@ -1035,5 +1092,46 @@ public class StyleElements
 		} );
 
 		return tf;
+	}
+
+	public static JButton linkedFontButton( final FontElement element, final Window parent )
+	{
+		final JButton btn = new JButton( "Select font" );
+		btn.setFont( element.get() );
+		btn.addPropertyChangeListener( "font", e -> element.set( btn.getFont() ) );
+		element.onSet( font -> {
+			if ( !font.equals( btn.getFont() ) )
+				btn.setFont( font );
+		} );
+		btn.addActionListener( e -> {
+			final FontDialog dialog = new FontDialog( parent, "Select font for TrackMate display", ModalityType.APPLICATION_MODAL );
+			dialog.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
+			dialog.setSelectedFont( btn.getFont() );
+			GuiUtils.positionWindow( dialog, parent );
+			dialog.setIconImage( Icons.FONT_SELECT.getImage() );
+			dialog.setVisible( true );
+			if ( !dialog.isCancelSelected() )
+				btn.setFont( dialog.getSelectedFont() );
+		} );
+		return btn;
+	}
+
+	public static FontElement fontElement( final String label, final Supplier< Font > get, final Consumer< Font > set )
+	{
+		return new FontElement( label )
+		{
+
+			@Override
+			public void set( final Font font )
+			{
+				set.accept( font );
+			}
+
+			@Override
+			public Font get()
+			{
+				return get.get();
+			}
+		};
 	}
 }

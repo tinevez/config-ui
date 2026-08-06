@@ -29,6 +29,8 @@ public class Icons
 
 	public static final ImageIcon STOP_PREVIEW = get( "preview_off" );
 
+	public static final ImageIcon FONT_SELECT = get( "type_specimen_64dp_1F1F1F_FILL0_wght400_GRAD0_opsz48" );
+
 	private static final ImageIcon get( final String name )
 	{
 		return resize( load( "/icons/" + name + ".png" ), DEFAULT_ICON_SIZE, DEFAULT_ICON_SIZE );

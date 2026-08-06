@@ -79,6 +79,8 @@
 		<license.licenseName>bsd_3</license.licenseName>
 		<license.copyrightOwners>Institut Pasteur</license.copyrightOwners>
 
+		<fontchooser.version>2.5.2</fontchooser.version>
+
 		<!-- Use Java 21. -->
 		<scijava.jvm.version>21</scijava.jvm.version>
 		<scijava.jvm.build.version>[21,)</scijava.jvm.build.version>
@@ -89,7 +91,7 @@
 
 	<dependencies>
 
-		<!-- SciJava commongs -> used for the Cancelable and Previewable interfaces -->
+		<!-- SciJava commons -> used for the Cancelable and Previewable interfaces -->
 		<dependency>
 			<groupId>org.scijava</groupId>
 			<artifactId>scijava-common</artifactId>
@@ -100,6 +102,14 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+
+		<!--  Font chooser -->
+		<dependency>
+			<groupId>org.drjekyll</groupId>
+			<artifactId>fontchooser</artifactId>
+			<version>${fontchooser.version}</version>
+		</dependency>
+
 
 		<!-- Test dependencies -->
 		<dependency>
