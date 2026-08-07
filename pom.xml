@@ -14,7 +14,7 @@
 
 	<name>Config-UI</name>
 	<description>A Java library to facilitate building user-interfaces configuring algorithms.</description>
-	<url>https://github.com/tinevez/config-ui</url>
+	<url>https://github.com/trackmate-sc/config-ui</url>
 	<inceptionYear>2026</inceptionYear>
 	<organization>
 		<name>Institut Pasteur</name>
@@ -59,18 +59,18 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:https://github.com/tinevez/config-ui</connection>
-		<developerConnection>scm:git:git@github.com:tinevez/config-ui</developerConnection>
+		<connection>scm:git:https://github.com/trackmate-sc/config-ui</connection>
+		<developerConnection>scm:git:git@github.com:trackmate-sc/config-ui</developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/tinevez/config-ui</url>
+		<url>https://github.com/trackmate-sc/config-ui</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/tinevez/config-ui/issues</url>
+		<url>https://github.com/trackmate-sc/config-ui/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/tinevez/config-ui/actions</url>
+		<url>https://github.com/trackmate-sc/config-ui/actions</url>
 	</ciManagement>
 
 	<properties>
