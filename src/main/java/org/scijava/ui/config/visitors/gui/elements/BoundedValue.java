@@ -47,13 +47,29 @@ public class BoundedValue
 
 	private int currentValue;
 
+	/**
+	 * Listener interface notified when the bounded value or its range changes.
+	 */
 	public interface UpdateListener
 	{
+		/**
+		 * Called when the bounded value or its range has changed.
+		 */
 		void update();
 	}
 
 	private UpdateListener updateListener;
 
+	/**
+	 * Creates a new bounded integer value.
+	 *
+	 * @param rangeMin
+	 *            the minimum allowed value.
+	 * @param rangeMax
+	 *            the maximum allowed value.
+	 * @param currentValue
+	 *            the initial current value.
+	 */
 	public BoundedValue( final int rangeMin, final int rangeMax, final int currentValue )
 	{
 		this.rangeMin = rangeMin;
@@ -62,21 +78,45 @@ public class BoundedValue
 		updateListener = null;
 	}
 
+	/**
+	 * Returns the minimum allowed value.
+	 *
+	 * @return the range minimum.
+	 */
 	public int getRangeMin()
 	{
 		return rangeMin;
 	}
 
+	/**
+	 * Returns the maximum allowed value.
+	 *
+	 * @return the range maximum.
+	 */
 	public int getRangeMax()
 	{
 		return rangeMax;
 	}
 
+	/**
+	 * Returns the current value.
+	 *
+	 * @return the current value.
+	 */
 	public int getCurrentValue()
 	{
 		return currentValue;
 	}
 
+	/**
+	 * Sets the allowed range for this bounded value. The current value is
+	 * clamped to the new range if necessary.
+	 *
+	 * @param min
+	 *            the new minimum allowed value.
+	 * @param max
+	 *            the new maximum allowed value.
+	 */
 	public void setRange( final int min, final int max )
 	{
 		assert min <= max;
@@ -88,6 +128,13 @@ public class BoundedValue
 			updateListener.update();
 	}
 
+	/**
+	 * Sets the current value. The value is clamped to the allowed range if
+	 * necessary.
+	 *
+	 * @param value
+	 *            the new current value.
+	 */
 	public void setCurrentValue( final int value )
 	{
 		currentValue = value;
@@ -101,6 +148,12 @@ public class BoundedValue
 			updateListener.update();
 	}
 
+	/**
+	 * Sets the listener to be notified when the value or range changes.
+	 *
+	 * @param l
+	 *            the update listener.
+	 */
 	public void setUpdateListener( final UpdateListener l )
 	{
 		updateListener = l;

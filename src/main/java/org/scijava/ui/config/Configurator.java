@@ -113,6 +113,14 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * CONSTRUCTOR
 	 */
 
+	/**
+	 * Creates a new configurator with the specified name and help text.
+	 * 
+	 * @param name
+	 *            the name.
+	 * @param help
+	 *            the help text.
+	 */
 	protected Configurator( final String name, final String help )
 	{
 		this.name = name;

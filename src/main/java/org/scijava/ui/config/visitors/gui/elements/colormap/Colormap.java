@@ -251,9 +251,13 @@ public class Colormap implements Serializable
 	}
 
 	/**
-	 * Return a color interpolated within the color list of this paint scale.
+	 * Returns a color interpolated within the color list of this paint scale.
 	 * The interpolation is a linear one between the two colors in the list
 	 * whose associated values frame the one given.
+	 * 
+	 * @param value
+	 *            the value for which to get the color.
+	 * @return the color interpolated at the given value.
 	 */
 	public Color getPaint( double value )
 	{

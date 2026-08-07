@@ -38,6 +38,7 @@ import org.scijava.ui.config.Parameters.ChoiceParam;
 import org.scijava.ui.config.Parameters.DoubleParam;
 import org.scijava.ui.config.Parameters.EnumParam;
 import org.scijava.ui.config.Parameters.IntParam;
+import org.scijava.ui.config.Parameters.Parameter;
 import org.scijava.ui.config.Parameters.PathParam;
 import org.scijava.ui.config.Parameters.StringParam;
 

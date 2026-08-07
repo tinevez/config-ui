@@ -64,6 +64,10 @@ final public class EverythingDisablerAndReenabler
 	// Order is strictly upheld via IllegalStateException!
 
 	/**
+	 * Creates a new instance of this class, which can be used to disable and
+	 * re-enable all components of a given container, except for the specified
+	 * classes.
+	 * 
 	 * @param rootContainerForWhatShouldBeDisabled
 	 *            NOT NULL! The Container whose components are to be recursively
 	 *            disabled. The container itself will not be disabled.
@@ -121,6 +125,9 @@ final public class EverythingDisablerAndReenabler
 	}
 
 	/**
+	 * Re-enables everything that was disabled by the last call to
+	 * {@link #disable()}.
+	 * 
 	 * @throws IllegalStateException
 	 *             if called twice in a row or if disable() had not been called
 	 *             yet.
