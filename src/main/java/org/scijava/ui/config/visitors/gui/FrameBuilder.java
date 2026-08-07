@@ -79,8 +79,8 @@ public final class FrameBuilder< C extends Configurator >
 {
 	/**
 	 * A task to be executed when the user clicks the Run button. The task
-	 * receives a {@link Progress} object to report progress and check for
-	 * cancellation.
+	 * receives a {@link ConfigFrame.Progress} object to report progress and
+	 * check for cancellation.
 	 */
 	@FunctionalInterface
 	public interface UserTask

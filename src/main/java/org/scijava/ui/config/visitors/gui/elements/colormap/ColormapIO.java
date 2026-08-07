@@ -56,6 +56,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ColormapIO
 {
+	/**
+	 * Private constructor to prevent instantiation of this utility class.
+	 */
+	private ColormapIO()
+	{
+		// Utility class
+	}
 
 	private static final List< URI > LUT_FOLDERS = new ArrayList<>();
 	static

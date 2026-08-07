@@ -131,11 +131,22 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * GETTERS
 	 */
 
+	/**
+	 * Returns the name of this configurator.
+	 *
+	 * @return the configurator name.
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * Returns the help text for this configurator. If the text is a valid URL,
+	 * it will be opened in a browser when the user clicks the help button.
+	 *
+	 * @return the help text, or {@code null} if none.
+	 */
 	public String getHelp()
 	{
 		return help;
@@ -213,6 +224,12 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		return Collections.unmodifiableMap( forwardUITranslators );
 	}
 
+	/**
+	 * Returns the map of translators that will be applied to a value read from
+	 * the UI before storing it in the parameter object.
+	 *
+	 * @return the map of backward UI translators.
+	 */
 	public Map< Parameter< ?, ? >, Function< ?, ? > > getBackwardUITranslators()
 	{
 		return Collections.unmodifiableMap( backwardUITranslators );
@@ -454,14 +471,19 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	abstract class ParamAdder< A extends Parameter< A, O >, T extends ParamAdder< A, T, O >, O > extends Adder< A, T >
 	{
 
+		/** Units for the parameter value. */
 		protected String units;
 
+		/** Default value for the parameter. */
 		protected O defaultValue;
 
+		/** Help text for the parameter. */
 		protected String help;
 
+		/** Whether the parameter is visible in the UI. */
 		protected boolean visible = true; // by default
 
+		/** Listener notified when the parameter value changes. */
 		protected UpdateListener updateListener = null;
 
 		/**
@@ -535,8 +557,10 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	@SuppressWarnings( "unchecked" )
 	private abstract class BoundedAdder< A extends BoundedValueParameter< A, O >, T extends BoundedAdder< A, T, O >, O extends Comparable< O > > extends ParamAdder< A, T, O >
 	{
+		/** Minimum value for the parameter. */
 		protected O min;
 
+		/** Maximum value for the parameter. */
 		protected O max;
 
 		/**

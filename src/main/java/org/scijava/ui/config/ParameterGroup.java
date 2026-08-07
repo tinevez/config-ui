@@ -53,12 +53,24 @@ public class ParameterGroup implements Iterable< Parameter< ?, ? > >
 
 	protected List< Parameter< ?, ? > > parameters = new ArrayList<>();
 
+	/**
+	 * Sets the name of this parameter group.
+	 *
+	 * @param name
+	 *            the group name.
+	 * @return this group.
+	 */
 	ParameterGroup name( final String name )
 	{
 		this.name = name;
 		return this;
 	}
 
+	/**
+	 * Returns the name of this parameter group.
+	 *
+	 * @return the group name.
+	 */
 	public String getName()
 	{
 		return name;
@@ -67,8 +79,9 @@ public class ParameterGroup implements Iterable< Parameter< ?, ? > >
 	/**
 	 * Set whether the group is folded (collapsed, default) or unfolded
 	 * (expanded) when displayed in a UI.
-	 * 
+	 *
 	 * @param collapsed
+	 *            whether the group is collapsed.
 	 * @return this parameter group.
 	 */
 	ParameterGroup collapsed( final boolean collapsed )
@@ -77,16 +90,32 @@ public class ParameterGroup implements Iterable< Parameter< ?, ? > >
 		return this;
 	}
 
+	/**
+	 * Returns whether this group is collapsed in the UI.
+	 *
+	 * @return {@code true} if collapsed, {@code false} if expanded.
+	 */
 	public boolean isCollapsed()
 	{
 		return collapsed;
 	}
 
+	/**
+	 * Adds a parameter to this group.
+	 *
+	 * @param param
+	 *            the parameter to add.
+	 */
 	void add( final Parameter< ?, ? > param )
 	{
 		this.parameters.add( param );
 	}
 
+	/**
+	 * Returns an iterator over the parameters in this group.
+	 *
+	 * @return an iterator over the parameters.
+	 */
 	@Override
 	public Iterator< Parameter< ?, ? > > iterator()
 	{

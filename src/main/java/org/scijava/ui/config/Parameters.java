@@ -37,6 +37,14 @@ import java.util.List;
 
 import org.scijava.ui.config.utils.StringUtils;
 
+/**
+ * Container class for parameter types used by {@link Configurator}.
+ * <p>
+ * This class defines various parameter types such as {@link BooleanParam},
+ * {@link IntParam}, {@link DoubleParam}, {@link StringParam}, {@link PathParam},
+ * {@link ChoiceParam}, and {@link EnumParam}, as well as the base classes
+ * {@link Parameter} and {@link BoundedValueParameter}.
+ */
 public class Parameters
 {
 
@@ -90,6 +98,12 @@ public class Parameters
 			return defaultValue;
 		}
 
+		/**
+		 * Sets the value of this parameter.
+		 *
+		 * @param value
+		 *            the new value.
+		 */
 		public void set( final O value )
 		{
 			if ( value == null && this.value != null || value != null && this.value == null || !value.equals( this.value ) )
@@ -178,16 +192,32 @@ public class Parameters
 			return name;
 		}
 
+		/**
+		 * Returns the help text for this parameter.
+		 *
+		 * @return the help text, or {@code null} if none.
+		 */
 		public String getHelp()
 		{
 			return help;
 		}
 
+		/**
+		 * Returns the key used to persist this parameter.
+		 *
+		 * @return the parameter key.
+		 */
 		public String getKey()
 		{
 			return key;
 		}
 
+		/**
+		 * Accepts a visitor to process this parameter.
+		 *
+		 * @param visitor
+		 *            the visitor to accept.
+		 */
 		public abstract void accept( final ParameterVisitor visitor );
 
 		@Override
@@ -208,6 +238,9 @@ public class Parameters
 		}
 	}
 
+	/**
+	 * A boolean parameter type.
+	 */
 	public static class BooleanParam extends Parameter< BooleanParam, Boolean >
 	{
 		BooleanParam()
@@ -248,6 +281,9 @@ public class Parameters
 		}
 	}
 
+	/**
+	 * A string parameter type.
+	 */
 	public static class StringParam extends AbstractStringParam< StringParam >
 	{
 		StringParam()
@@ -269,6 +305,9 @@ public class Parameters
 	public static abstract class AbstractStringParam< T extends AbstractStringParam< T > > extends Parameter< T, String >
 	{}
 
+	/**
+	 * An integer parameter type with optional bounds.
+	 */
 	public static class IntParam extends BoundedValueParameter< IntParam, Integer >
 	{
 		IntParam()
@@ -281,6 +320,9 @@ public class Parameters
 		}
 	}
 
+	/**
+	 * A double parameter type with optional bounds.
+	 */
 	public static class DoubleParam extends BoundedValueParameter< DoubleParam, Double >
 	{
 		@Override
@@ -290,6 +332,9 @@ public class Parameters
 		}
 	}
 
+	/**
+	 * A parameter type that accepts a value from a discrete list of choices.
+	 */
 	public static class ChoiceParam extends Parameter< ChoiceParam, String >
 	{
 
@@ -337,6 +382,12 @@ public class Parameters
 			return choices.get( selected );
 		}
 
+		/**
+		 * Returns the index of the currently selected choice.
+		 *
+		 * @return the selected index, or the index of the default value if no
+		 *         selection has been made.
+		 */
 		public int getSelectedIndex()
 		{
 			if ( selected < 0 )
@@ -403,11 +454,23 @@ public class Parameters
 		}
 	}
 
+	/**
+	 * A parameter type that accepts a value from a Java enum.
+	 *
+	 * @param <E>
+	 *            the type of the enum.
+	 */
 	public static class EnumParam< E extends Enum< E > > extends Parameter< EnumParam< E >, E >
 	{
 
 		private final Class< E > enumClass;
 
+		/**
+		 * Creates an enum parameter for the specified enum class.
+		 *
+		 * @param enumClass
+		 *            the class of the enum type.
+		 */
 		EnumParam( final Class< E > enumClass )
 		{
 			this.enumClass = enumClass;
@@ -462,6 +525,11 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		/**
+		 * Returns the maximum allowed value for this parameter.
+		 *
+		 * @return the maximum value, or {@code null} if no maximum is set.
+		 */
 		public O getMax()
 		{
 			return max;
@@ -473,16 +541,31 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		/**
+		 * Returns the minimum allowed value for this parameter.
+		 *
+		 * @return the minimum value, or {@code null} if no minimum is set.
+		 */
 		public O getMin()
 		{
 			return min;
 		}
 
+		/**
+		 * Returns whether this parameter has a minimum value set.
+		 *
+		 * @return {@code true} if a minimum is set, {@code false} otherwise.
+		 */
 		public boolean hasMin()
 		{
 			return min != null;
 		}
 
+		/**
+		 * Returns whether this parameter has a maximum value set.
+		 *
+		 * @return {@code true} if a maximum is set, {@code false} otherwise.
+		 */
 		public boolean hasMax()
 		{
 			return max != null;
@@ -504,8 +587,15 @@ public class Parameters
 		}
 	}
 
+	/**
+	 * Listener interface for receiving notifications when a parameter value
+	 * changes.
+	 */
 	public interface UpdateListener
 	{
+		/**
+		 * Called when a parameter value has been updated.
+		 */
 		void parameterUpdated();
 	}
 }
