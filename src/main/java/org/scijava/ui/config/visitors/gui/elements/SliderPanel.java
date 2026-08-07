@@ -33,7 +33,6 @@
 package org.scijava.ui.config.visitors.gui.elements;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseWheelEvent;
@@ -131,7 +130,7 @@ public class SliderPanel extends JPanel implements BoundedValue.UpdateListener
 		if ( name != null )
 		{
 			final JLabel label = new JLabel( name, SwingConstants.CENTER );
-			label.setAlignmentX( Component.CENTER_ALIGNMENT );
+			label.setAlignmentX( CENTER_ALIGNMENT );
 			add( label, BorderLayout.WEST );
 		}
 

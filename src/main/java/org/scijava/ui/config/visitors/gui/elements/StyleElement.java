@@ -40,8 +40,8 @@ package org.scijava.ui.config.visitors.gui.elements;
  */
 public interface StyleElement
 {
-	public default void update()
+	default void update()
 	{}
 
-	public void accept( StyleElementVisitor visitor );
+	void accept( StyleElementVisitor visitor );
 }

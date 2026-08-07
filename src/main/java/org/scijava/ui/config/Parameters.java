@@ -504,7 +504,7 @@ public class Parameters
 		}
 	}
 
-	public static interface UpdateListener
+	public interface UpdateListener
 	{
 		void parameterUpdated();
 	}

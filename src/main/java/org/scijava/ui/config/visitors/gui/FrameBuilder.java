@@ -198,8 +198,8 @@ public final class FrameBuilder< C extends Configurator >
 
 		if ( task != null )
 		{
-			final boolean cancelable = ( task instanceof Cancelable );
-			final boolean previewable = ( task instanceof Previewable );
+			final boolean cancelable = task instanceof Cancelable;
+			final boolean previewable = task instanceof Previewable;
 
 			frame.btnRun = flatButton( Icons.PLAY, "Run", runner() );
 
@@ -208,7 +208,7 @@ public final class FrameBuilder< C extends Configurator >
 				frame.btnStop = flatButton( Icons.STOP, "Stop", stopper() );
 				frame.btnStop.setVisible( false );
 
-				frame.runStop = new JPanel( new java.awt.CardLayout() );
+				frame.runStop = new JPanel( new CardLayout() );
 				frame.runStop.add( frame.btnRun, "RUN" );
 				frame.runStop.add( frame.btnStop, "STOP" );
 				row.add( frame.runStop );
@@ -337,7 +337,8 @@ public final class FrameBuilder< C extends Configurator >
 					SwingUtilities.invokeLater( () -> {
 						if ( task instanceof Cancelable && ( ( Cancelable ) task ).isCanceled() )
 						{
-							// Was canceled by the user - task handled it
+							// Was canceled by the user - task handled it.
+							// No further action needed.
 						}
 						else if ( err != null )
 						{
@@ -347,7 +348,8 @@ public final class FrameBuilder< C extends Configurator >
 						}
 						else
 						{
-							// Completed successfully
+							// Completed successfully.
+							// No further action needed.
 						}
 
 						if ( cancelable )

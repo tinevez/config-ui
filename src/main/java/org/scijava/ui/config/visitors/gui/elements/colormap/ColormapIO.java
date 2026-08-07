@@ -119,7 +119,7 @@ public class ColormapIO
 		if ( Files.exists( folderPath ) )
 		{
 			final String glob = "*.lut";
-			try (final DirectoryStream< Path > folderStream = Files.newDirectoryStream( folderPath, glob ))
+			try (DirectoryStream< Path > folderStream = Files.newDirectoryStream( folderPath, glob ))
 			{
 				for ( final Path path : folderStream )
 				{
@@ -135,12 +135,12 @@ public class ColormapIO
 		return luts;
 	}
 
-	private static final Colormap importLUT( final Path path ) throws IOException
+	private static Colormap importLUT( final Path path ) throws IOException
 	{
 		final String fileName = path.getFileName().toString();
 		final String lutName = fileName.substring( 0, fileName.indexOf( '.' ) );
 
-		try (final Scanner scanner = new Scanner( path ))
+		try (Scanner scanner = new Scanner( path ))
 		{
 
 			final List< Color > colors = new ArrayList<>();

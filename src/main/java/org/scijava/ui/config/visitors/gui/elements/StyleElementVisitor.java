@@ -54,62 +54,62 @@ import org.scijava.ui.config.visitors.gui.elements.StyleElements.StringElement;
  */
 public interface StyleElementVisitor
 {
-	public default void visit( final Separator element )
+	default void visit( final Separator element )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final LabelElement label )
+	default void visit( final LabelElement label )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final ColorElement colorElement )
+	default void visit( final ColorElement colorElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final BooleanElement booleanElement )
+	default void visit( final BooleanElement booleanElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final BoundedDoubleElement doubleElement )
+	default void visit( final BoundedDoubleElement doubleElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final DoubleElement doubleElement )
+	default void visit( final DoubleElement doubleElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final IntElement intElement )
+	default void visit( final IntElement intElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default < E > void visit( final EnumElement< E > enumElement )
+	default < E > void visit( final EnumElement< E > enumElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final ColormapElement element )
+	default void visit( final ColormapElement element )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final StringElement stringElement )
+	default void visit( final StringElement stringElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default < E > void visit( final ListElement< E > listElement )
+	default < E > void visit( final ListElement< E > listElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
-	public default void visit( final FontElement element )
+	default void visit( final FontElement element )
 	{
 		throw new UnsupportedOperationException();
 	}

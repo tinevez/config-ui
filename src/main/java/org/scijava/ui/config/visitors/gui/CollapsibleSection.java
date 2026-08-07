@@ -161,7 +161,7 @@ public class CollapsibleSection extends JPanel
 		ToggleTitleBorder( final String title, final Font font, final boolean expanded )
 		{
 			super( BorderFactory.createLineBorder( Color.LIGHT_GRAY, 1, true ),
-					title, TitledBorder.LEFT, TitledBorder.TOP, font, null );
+					title, LEFT, TOP, font, null );
 			this.baseTitle = title;
 			this.expanded = expanded;
 			setTitleColor( Color.GRAY );

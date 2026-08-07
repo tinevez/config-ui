@@ -1019,7 +1019,9 @@ public class StyleElements
 					validateAndSet.run();
 				}
 				catch ( final ParseException e1 )
-				{}
+				{
+					// Ignore parse error - invalid input won't be committed.
+				}
 			}
 		} );
 		GuiUtils.selectAllOnFocus( ftf );
@@ -1047,7 +1049,7 @@ public class StyleElements
 			}
 		} );
 		element.onSet( d -> {
-			if ( d != ( tf.getText() ) )
+			if ( d != tf.getText() )
 				tf.setText( element.value );
 		} );
 

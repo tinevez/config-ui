@@ -33,7 +33,6 @@
 package org.scijava.ui.config.visitors.gui.elements;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -158,7 +157,7 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 		if ( name != null )
 		{
 			final JLabel label = new JLabel( name, SwingConstants.CENTER );
-			label.setAlignmentX( Component.CENTER_ALIGNMENT );
+			label.setAlignmentX( CENTER_ALIGNMENT );
 			add( label, BorderLayout.WEST );
 		}
 
@@ -215,7 +214,7 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 		final double min = model.getRangeMin();
 		final double max = model.getRangeMax();
 
-		final boolean rangeChanged = ( dmax != max || dmin != min );
+		final boolean rangeChanged = dmax != max || dmin != min;
 		if ( rangeChanged )
 		{
 			dmin = min;
@@ -250,7 +249,7 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 		{
 			final double range = dmax - dmin;
 			final int digits = ( int ) Math.ceil( Math.log10( sw / range ) );
-			final NumberEditor numberEditor = ( ( JSpinner.NumberEditor ) spinner.getEditor() );
+			final NumberEditor numberEditor = ( JSpinner.NumberEditor ) spinner.getEditor();
 			numberEditor.getFormat().setMaximumFractionDigits( digits );
 			numberEditor.stateChanged( new ChangeEvent( spinner ) );
 		}

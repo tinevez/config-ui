@@ -140,7 +140,7 @@ public class Colormap implements Serializable
 		final int nTriplets = triplets.length;
 		for ( int i = 0; i < nTriplets; i++ )
 		{
-			final double alpha = ( i ) / ( nTriplets - 1. );
+			final double alpha = i / ( nTriplets - 1. );
 			final double[] triplet = triplets[ i ];
 			Turbo.add( alpha, new Color( ( float ) triplet[ 0 ], ( float ) triplet[ 1 ], ( float ) triplet[ 2 ] ) );
 		}

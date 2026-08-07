@@ -63,19 +63,19 @@ public class Icons
 
 	public static final ImageIcon FONT_SELECT = get( "type_specimen_64dp_1F1F1F_FILL0_wght400_GRAD0_opsz48" );
 
-	private static final ImageIcon get( final String name )
+	private static ImageIcon get( final String name )
 	{
 		return resize( load( "/icons/" + name + ".png" ), DEFAULT_ICON_SIZE, DEFAULT_ICON_SIZE );
 	}
 
-	private static final ImageIcon resize( final ImageIcon icon, final int width, final int height )
+	private static ImageIcon resize( final ImageIcon icon, final int width, final int height )
 	{
 		final Image img = icon.getImage();
 		final Image resizedImage = img.getScaledInstance( width, height, Image.SCALE_SMOOTH );
 		return new ImageIcon( resizedImage );
 	}
 
-	private static final ImageIcon load( final String path )
+	private static ImageIcon load( final String path )
 	{
 		try
 		{

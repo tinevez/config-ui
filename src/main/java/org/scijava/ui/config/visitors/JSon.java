@@ -230,5 +230,5 @@ public class JSon
 			if ( valuesMap.containsKey( stringParam.getKey() ) )
 				stringParam.set( ( String ) valuesMap.get( stringParam.getKey() ) );
 		}
-	};
+	}
 }

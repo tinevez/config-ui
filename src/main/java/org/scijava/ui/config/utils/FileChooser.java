@@ -61,7 +61,7 @@ public class FileChooser
 	/**
 	 * Enumerates the type of file chooser dialog to display.
 	 */
-	public static enum DialogType
+	public enum DialogType
 	{
 		/** Open/load file dialog. */
 		LOAD,
@@ -72,7 +72,7 @@ public class FileChooser
 	/**
 	 * Enumerates the selection mode for the file chooser.
 	 */
-	public static enum SelectionMode
+	public enum SelectionMode
 	{
 		/** Allow selection of files only. */
 		FILES_ONLY,
@@ -187,8 +187,8 @@ public class FileChooser
 			final DialogType dialogType,
 			final SelectionMode selectionMode )
 	{
-		final boolean isSaveDialog = ( dialogType == DialogType.SAVE );
-		final boolean isDirectoriesOnly = ( selectionMode == SelectionMode.DIRECTORIES_ONLY );
+		final boolean isSaveDialog = dialogType == DialogType.SAVE;
+		final boolean isDirectoriesOnly = selectionMode == SelectionMode.DIRECTORIES_ONLY;
 
 		if ( isSaveDialog && isDirectoriesOnly )
 			useJFileChooser = true; // FileDialog cannot handle this
