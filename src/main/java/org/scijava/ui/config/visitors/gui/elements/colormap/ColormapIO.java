@@ -49,7 +49,8 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Loat LUTS for {@link Colormap}. Code adapted from what we did in Mastodon.
+ * Loads LUTs (Look-Up Tables) for {@link Colormap}. Code adapted from what
+ * we did in Mastodon.
  *
  * @author Jean-Yves Tinevez 2019
  */

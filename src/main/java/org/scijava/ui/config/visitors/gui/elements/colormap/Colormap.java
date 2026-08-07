@@ -157,6 +157,12 @@ public class Colormap implements Serializable
 		LUTS = Collections.unmodifiableList( tmpLUTS );
 	}
 
+	/**
+	 * Returns the list of available colormaps, including built-in presets and
+	 * any LUTs loaded from resource files.
+	 *
+	 * @return an unmodifiable list of available colormaps.
+	 */
 	public static List< Colormap > getAvailableLUTs()
 	{
 		return LUTS;
@@ -220,6 +226,11 @@ public class Colormap implements Serializable
 	 * PUBLIC METHODS
 	 */
 
+	/**
+	 * Returns the name of this colormap.
+	 *
+	 * @return the colormap name.
+	 */
 	public String getName()
 	{
 		return name;
@@ -245,6 +256,11 @@ public class Colormap implements Serializable
 		colors.put( value, color );
 	}
 
+	/**
+	 * Returns the lower bound of this colormap.
+	 *
+	 * @return the lower bound.
+	 */
 	public double getLowerBound()
 	{
 		return lowerBound;
@@ -296,6 +312,11 @@ public class Colormap implements Serializable
 		return new Color( red, green, blue );
 	}
 
+	/**
+	 * Returns the upper bound of this colormap.
+	 *
+	 * @return the upper bound.
+	 */
 	public double getUpperBound()
 	{
 		return upperBound;
@@ -311,6 +332,13 @@ public class Colormap implements Serializable
 	}
 
 
+	/**
+	 * Main method for debugging purposes. Prints the names of all available
+	 * colormaps to standard output.
+	 *
+	 * @param args
+	 *            command-line arguments (not used).
+	 */
 	public static void main( final String[] args )
 	{
 		final StringBuilder str = new StringBuilder();
