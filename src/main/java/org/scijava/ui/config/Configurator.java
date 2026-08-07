@@ -235,6 +235,10 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		return new SelectableParamAdder();
 	}
 
+	/**
+	 * Represents a group of parameters where only one can be selected at a time.
+	 * This is used to create mutually exclusive parameter choices in the UI.
+	 */
 	public static class SelectableParameters
 	{
 
@@ -250,6 +254,11 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			this.params.addAll( params );
 		}
 
+		/**
+		 * Returns the key associated with this selectable parameter group.
+		 *
+		 * @return the group key.
+		 */
 		public String getKey()
 		{
 			return key;
@@ -273,11 +282,23 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			params.removeAll( toRemove );
 		}
 
+		/**
+		 * Selects the parameter at the specified index.
+		 *
+		 * @param selection
+		 *            the index of the parameter to select.
+		 */
 		public void select( final int selection )
 		{
 			this.selected = Math.max( 0, Math.min( params.size() - 1, selection ) );
 		}
 
+		/**
+		 * Selects the specified parameter.
+		 *
+		 * @param arg
+		 *            the parameter to select.
+		 */
 		public void select( final Parameter< ?, ? > arg )
 		{
 			final int sel = params.indexOf( arg );
@@ -289,6 +310,12 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			this.selected = sel;
 		}
 
+		/**
+		 * Selects the parameter with the specified key.
+		 *
+		 * @param key
+		 *            the key of the parameter to select.
+		 */
 		public void select( final String key )
 		{
 			for ( int i = 0; i < params.size(); i++ )
@@ -302,11 +329,21 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			this.selected = 0;
 		}
 
+		/**
+		 * Returns the currently selected parameter.
+		 *
+		 * @return the selected parameter.
+		 */
 		public Parameter< ?, ? > getSelection()
 		{
 			return params.get( selected );
 		}
 
+		/**
+		 * Returns the index of the currently selected parameter.
+		 *
+		 * @return the selected index.
+		 */
 		public int getSelected()
 		{
 			return selected;
@@ -322,6 +359,12 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			return params;
 		}
 
+		/**
+		 * Accepts a visitor to process this selectable parameter group.
+		 *
+		 * @param visitor
+		 *            the visitor to accept.
+		 */
 		public void accept( final ParameterVisitor visitor )
 		{
 			visitor.visit( this );
@@ -475,6 +518,13 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			return ( T ) this;
 		}
 
+		/**
+		 * Specifies a listener to be notified when the parameter value changes.
+		 *
+		 * @param updateListener
+		 *            the update listener.
+		 * @return this adder.
+		 */
 		public T updateListener( final UpdateListener updateListener )
 		{
 			this.updateListener = updateListener;
@@ -518,6 +568,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding an integer parameter with optional bounds.
+	 */
 	protected class IntAdder extends BoundedAdder< IntParam, IntAdder, Integer >
 	{
 		@Override
@@ -539,6 +592,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding a double parameter with optional bounds.
+	 */
 	protected class DoubleAdder extends BoundedAdder< DoubleParam, DoubleAdder, Double >
 	{
 
@@ -564,6 +620,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding a boolean parameter.
+	 */
 	protected class BooleanAdder extends ParamAdder< BooleanParam, BooleanAdder, Boolean >
 	{
 
@@ -588,6 +647,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding a string parameter.
+	 */
 	protected class StringAdder extends ParamAdder< StringParam, StringAdder, String >
 	{
 
@@ -612,6 +674,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding a file or directory path parameter.
+	 */
 	protected class PathAdder extends ParamAdder< PathParam, PathAdder, String >
 	{
 
@@ -636,6 +701,10 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding a parameter that accepts a value from a discrete list of
+	 * choices.
+	 */
 	protected class ChoiceAdder extends ParamAdder< ChoiceParam, ChoiceAdder, String >
 	{
 
@@ -766,11 +835,23 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for adding a parameter that accepts a value from a Java enum type.
+	 *
+	 * @param <E>
+	 *            the type of the enum.
+	 */
 	protected class EnumAdder< E extends Enum< E > > extends ParamAdder< EnumParam< E >, EnumAdder< E >, E >
 	{
 
 		private final Class< E > enumClass;
 
+		/**
+		 * Creates a new enum parameter builder for the specified enum class.
+		 *
+		 * @param enumClass
+		 *            the class of the enum type.
+		 */
 		public EnumAdder( final Class< E > enumClass )
 		{
 			this.enumClass = enumClass;
@@ -798,11 +879,21 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 	
+	/**
+	 * Builder for creating a group of mutually exclusive parameters.
+	 */
 	protected class SelectableParamAdder extends Adder< SelectableParameters, SelectableParamAdder >
 	{
 
 		private final List< Parameter< ?, ? > > params = new ArrayList<>();
 
+		/**
+		 * Adds a parameter to this selectable group.
+		 *
+		 * @param param
+		 *            the parameter to add.
+		 * @return this adder.
+		 */
 		public < T extends Parameter< T, O >, O > SelectableParamAdder add( final T param )
 		{
 			if ( !params.contains( param ) )
@@ -820,6 +911,10 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		}
 	}
 
+	/**
+	 * Builder for creating a group of parameters that can be collapsed or
+	 * expanded in the UI.
+	 */
 	protected class GroupAdder extends Adder< ParameterGroup, GroupAdder >
 	{
 
@@ -827,6 +922,13 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 
 		protected boolean collapsed = true; // by default
 
+		/**
+		 * Adds a parameter to this group.
+		 *
+		 * @param param
+		 *            the parameter to add.
+		 * @return this adder.
+		 */
 		public < T extends Parameter< T, O >, O > GroupAdder add( final T param )
 		{
 			params.add( param );
@@ -847,6 +949,11 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			return this;
 		}
 
+		/**
+		 * Builds and adds the parameter group to the configurator.
+		 *
+		 * @return the created parameter group.
+		 */
 		@Override
 		public ParameterGroup get()
 		{

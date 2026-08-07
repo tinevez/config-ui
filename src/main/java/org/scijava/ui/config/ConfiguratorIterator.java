@@ -67,6 +67,18 @@ public class ConfiguratorIterator implements Iterator< Parameter< ?, ? > >
 
 	private boolean lastExited = false;
 
+	/**
+	 * Creates a new iterator for the specified configurator.
+	 * <p>
+	 * The iterator yields all parameters in display order: standalone parameters
+	 * and all parameters within groups (empty groups are skipped). Note that
+	 * {@link SelectableParameters} groups themselves are not yielded as elements;
+	 * only their member parameters are iterated. The iterator does not filter
+	 * based on selection state or parameter visibility.
+	 *
+	 * @param configurator
+	 *            the configurator to iterate over.
+	 */
 	public ConfiguratorIterator( final Configurator configurator )
 	{
 		this.mainIterator = configurator.orderedElements.iterator();
@@ -147,25 +159,45 @@ public class ConfiguratorIterator implements Iterator< Parameter< ?, ? > >
 		return result;
 	}
 
-	// Was the last returned parameter the first in its group?
+	/**
+	 * Returns {@code true} if the last returned parameter was the first in its
+	 * group.
+	 *
+	 * @return {@code true} if entering a group, {@code false} otherwise.
+	 */
 	public boolean groupEntered()
 	{
 		return lastEntered;
 	}
 
-	// Was the last returned parameter the last in its group?
+	/**
+	 * Returns {@code true} if the last returned parameter was the last in its
+	 * group.
+	 *
+	 * @return {@code true} if exiting a group, {@code false} otherwise.
+	 */
 	public boolean groupExited()
 	{
 		return lastExited;
 	}
 
-	// Did the last returned parameter belong to a group?
+	/**
+	 * Returns {@code true} if the last returned parameter belonged to a group.
+	 *
+	 * @return {@code true} if inside a group, {@code false} if the last
+	 *         parameter was standalone.
+	 */
 	public boolean inGroup()
 	{
 		return lastGroup != null;
 	}
 
-	// The group of the last returned parameter (or null if standalone)
+	/**
+	 * Returns the group containing the last returned parameter, or {@code null}
+	 * if the last parameter was standalone.
+	 *
+	 * @return the current parameter group, or {@code null}.
+	 */
 	public ParameterGroup getCurrentGroup()
 	{
 		return lastGroup;
