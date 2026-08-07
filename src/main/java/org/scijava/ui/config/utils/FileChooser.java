@@ -51,6 +51,11 @@ import javax.swing.filechooser.FileFilter;
  */
 public class FileChooser
 {
+
+	/** Prevent instantiation of utility class. */
+	private FileChooser()
+	{}
+
 	/**
 	 * Flag to force the use of {@link JFileChooser} instead of the native
 	 * {@link java.awt.FileDialog}. By default, this is {@code false} on macOS
@@ -199,8 +204,8 @@ public class FileChooser
 		 * If a dialogTitle is given, just use that.
 		 *
 		 * Otherwise, use "Open" or "Save", depending on DialogType. If a
-		 * FileFilter is provided, append the FileFilter description,
-		 * leading to "Open xml files" or similar.
+		 * FileFilter is provided, append the FileFilter description, leading to
+		 * "Open xml files" or similar.
 		 */
 		String title = dialogTitle;
 		if ( title == null )

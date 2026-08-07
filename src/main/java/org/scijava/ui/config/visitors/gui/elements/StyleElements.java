@@ -89,22 +89,53 @@ import org.scijava.ui.config.visitors.gui.elements.colormap.Colormap;
  */
 public class StyleElements
 {
+
+	/** Prevent instantiation of utility class. */
+	private StyleElements()
+	{}
+
+	/** Number format for displaying decimal values. */
 	public static DecimalFormat format = new DecimalFormat( "#.###" );
 
+	/** Default font for UI elements. */
 	public static Font FONT = UIManager.getFont( "Label.font" );
 
+	/** Smaller font for secondary UI elements. */
 	public static Font SMALL_FONT = FONT.deriveFont( FONT.getSize() * 0.8f );
 
+	/**
+	 * Creates a separator element.
+	 *
+	 * @return a new separator.
+	 */
 	public static Separator separator()
 	{
 		return new Separator();
 	}
 
+	/**
+	 * Creates a label element.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @return a new label element.
+	 */
 	public static LabelElement label( final String label )
 	{
 		return new LabelElement( label );
 	}
 
+	/**
+	 * Creates a string element with getter and setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new string element.
+	 */
 	public static StringElement stringElement( final String label, final Supplier< String > get, final Consumer< String > set )
 	{
 		return new StringElement( label )
@@ -124,6 +155,17 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates a boolean element with getter and setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new boolean element.
+	 */
 	public static BooleanElement booleanElement( final String label, final BooleanSupplier get, final Consumer< Boolean > set )
 	{
 		return new BooleanElement( label )
@@ -142,6 +184,17 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates a color element with getter and setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new color element.
+	 */
 	public static ColorElement colorElement( final String label, final Supplier< Color > get, final Consumer< Color > set )
 	{
 		return new ColorElement( label )
@@ -160,6 +213,17 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates a colormap element with getter and setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new colormap element.
+	 */
 	public static ColormapElement colormapElement( final String label, final Supplier< Colormap > get, final Consumer< Colormap > set )
 	{
 		return new ColormapElement( label )
@@ -179,6 +243,21 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates a bounded double element with range and getter/setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param rangeMin
+	 *            the minimum value.
+	 * @param rangeMax
+	 *            the maximum value.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new bounded double element.
+	 */
 	public static BoundedDoubleElement boundedDoubleElement( final String label, final double rangeMin, final double rangeMax, final DoubleSupplier get, final Consumer< Double > set )
 	{
 		return new BoundedDoubleElement( label, rangeMin, rangeMax )
@@ -197,6 +276,17 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates a double element with getter and setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new double element.
+	 */
 	public static DoubleElement doubleElement( final String label, final DoubleSupplier get, final Consumer< Double > set )
 	{
 		return new DoubleElement( label )
@@ -215,6 +305,21 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates an integer element with range and getter/setter.
+	 *
+	 * @param label
+	 *            the label text.
+	 * @param rangeMin
+	 *            the minimum value.
+	 * @param rangeMax
+	 *            the maximum value.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new integer element.
+	 */
 	public static IntElement intElement( final String label, final int rangeMin, final int rangeMax, final IntSupplier get, final Consumer< Integer > set )
 	{
 		return new IntElement( label, rangeMin, rangeMax )
@@ -233,6 +338,21 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates an enum element with getter and setter.
+	 *
+	 * @param <E>
+	 *            the enum type.
+	 * @param label
+	 *            the label text.
+	 * @param values
+	 *            the array of possible values.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new enum element.
+	 */
 	public static < E > EnumElement< E > enumElement( final String label, final E[] values, final Supplier< E > get, final Consumer< E > set )
 	{
 		return new EnumElement< E >( label, values )
@@ -252,6 +372,21 @@ public class StyleElements
 		};
 	}
 
+	/**
+	 * Creates a list element with getter and setter.
+	 *
+	 * @param <E>
+	 *            the element type.
+	 * @param label
+	 *            the label text.
+	 * @param values
+	 *            the list of possible values.
+	 * @param get
+	 *            the getter function.
+	 * @param set
+	 *            the setter function.
+	 * @return a new list element.
+	 */
 	public static < E > ListElement< E > listElement( final String label, final List< E > values, final Supplier< E > get, final Consumer< E > set )
 	{
 		return new ListElement< E >( label, values )
@@ -277,6 +412,7 @@ public class StyleElements
 	 *
 	 */
 
+	/** Separator style element. */
 	public static class Separator implements StyleElement
 	{
 		@Override
@@ -286,15 +422,27 @@ public class StyleElements
 		}
 	}
 
+	/** Label style element. */
 	public static class LabelElement implements StyleElement
 	{
 		private final String label;
 
+		/**
+		 * Creates a label element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public LabelElement( final String label )
 		{
 			this.label = label;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -307,6 +455,7 @@ public class StyleElements
 		}
 	}
 
+	/** String element base class. */
 	public static abstract class StringElement implements StyleElement
 	{
 
@@ -316,12 +465,23 @@ public class StyleElements
 
 		private String value;
 
+		/**
+		 * Creates a string element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public StringElement( final String label )
 		{
 			this.label = label;
 			this.value = "";
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -333,10 +493,27 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Gets the current string value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract String get();
 
+		/**
+		 * Sets the string value.
+		 *
+		 * @param s
+		 *            the new value.
+		 */
 		public abstract void set( String s );
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< String > set )
 		{
 			onSet.add( set );
@@ -351,6 +528,12 @@ public class StyleElements
 		}
 	}
 
+	/**
+	 * Enum element base class.
+	 *
+	 * @param <E>
+	 *            the enum type
+	 */
 	public static abstract class EnumElement< E > implements StyleElement
 	{
 		private final ArrayList< Consumer< E > > onSet = new ArrayList<>();
@@ -359,12 +542,25 @@ public class StyleElements
 
 		private final E[] values;
 
+		/**
+		 * Creates an enum element.
+		 *
+		 * @param label
+		 *            the label text.
+		 * @param values
+		 *            the array of possible values.
+		 */
 		public EnumElement( final String label, final E[] values )
 		{
 			this.label = label;
 			this.values = values;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -376,6 +572,12 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< E > set )
 		{
 			onSet.add( set );
@@ -387,16 +589,38 @@ public class StyleElements
 			onSet.forEach( c -> c.accept( getValue() ) );
 		}
 
+		/**
+		 * Gets the current enum value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract E getValue();
 
+		/**
+		 * Sets the enum value.
+		 *
+		 * @param e
+		 *            the new value.
+		 */
 		public abstract void setValue( E e );
 
+		/**
+		 * Returns the array of possible values.
+		 *
+		 * @return the values array.
+		 */
 		public E[] getValues()
 		{
 			return values;
 		}
 	}
 
+	/**
+	 * List element base class.
+	 *
+	 * @param <E>
+	 *            the element type
+	 */
 	public static abstract class ListElement< E > implements StyleElement
 	{
 		private final ArrayList< Consumer< E > > onSet = new ArrayList<>();
@@ -405,12 +629,25 @@ public class StyleElements
 
 		private final List< E > values;
 
+		/**
+		 * Creates a list element.
+		 *
+		 * @param label
+		 *            the label text.
+		 * @param values
+		 *            the list of possible values.
+		 */
 		public ListElement( final String label, final List< E > values )
 		{
 			this.label = label;
 			this.values = values;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -422,6 +659,12 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< E > set )
 		{
 			onSet.add( set );
@@ -433,27 +676,55 @@ public class StyleElements
 			onSet.forEach( c -> c.accept( getValue() ) );
 		}
 
+		/**
+		 * Gets the current value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract E getValue();
 
+		/**
+		 * Sets the value.
+		 *
+		 * @param e
+		 *            the new value.
+		 */
 		public abstract void setValue( E e );
 
+		/**
+		 * Returns the list of possible values.
+		 *
+		 * @return the values list.
+		 */
 		public List< E > getValues()
 		{
 			return values;
 		}
 	}
 
+	/** Color element base class. */
 	public static abstract class ColorElement implements StyleElement
 	{
 		private final ArrayList< Consumer< Color > > onSet = new ArrayList<>();
 
 		private final String label;
 
+		/**
+		 * Creates a color element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public ColorElement( final String label )
 		{
 			this.label = label;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -465,6 +736,12 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< Color > set )
 		{
 			onSet.add( set );
@@ -476,22 +753,45 @@ public class StyleElements
 			onSet.forEach( c -> c.accept( getColor() ) );
 		}
 
+		/**
+		 * Gets the current color.
+		 *
+		 * @return the current color.
+		 */
 		public abstract Color getColor();
 
+		/**
+		 * Sets the color.
+		 *
+		 * @param c
+		 *            the new color.
+		 */
 		public abstract void setColor( Color c );
 	}
 
+	/** Boolean element base class. */
 	public static abstract class BooleanElement implements StyleElement
 	{
 		private final String label;
 
 		private final ArrayList< Consumer< Boolean > > onSet = new ArrayList<>();
 
+		/**
+		 * Creates a boolean element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public BooleanElement( final String label )
 		{
 			this.label = label;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -503,6 +803,12 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< Boolean > set )
 		{
 			onSet.add( set );
@@ -514,17 +820,39 @@ public class StyleElements
 			onSet.forEach( c -> c.accept( get() ) );
 		}
 
+		/**
+		 * Gets the current boolean value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract boolean get();
 
+		/**
+		 * Sets the boolean value.
+		 *
+		 * @param b
+		 *            the new value.
+		 */
 		public abstract void set( boolean b );
 	}
 
+	/** Bounded double element base class. */
 	public static abstract class BoundedDoubleElement implements StyleElement
 	{
 		private final BoundedValueDouble value;
 
 		private final String label;
 
+		/**
+		 * Creates a bounded double element.
+		 *
+		 * @param label
+		 *            the label text.
+		 * @param rangeMin
+		 *            the minimum value.
+		 * @param rangeMax
+		 *            the maximum value.
+		 */
 		public BoundedDoubleElement( final String label, final double rangeMin, final double rangeMax )
 		{
 			final double currentValue = Math.max( rangeMin, Math.min( rangeMax, get() ) );
@@ -541,11 +869,21 @@ public class StyleElements
 			this.label = label;
 		}
 
+		/**
+		 * Returns the bounded value model.
+		 *
+		 * @return the BoundedValueDouble.
+		 */
 		public BoundedValueDouble getValue()
 		{
 			return value;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -557,8 +895,19 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Gets the current double value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract double get();
 
+		/**
+		 * Sets the double value.
+		 *
+		 * @param v
+		 *            the new value.
+		 */
 		public abstract void set( double v );
 
 		@Override
@@ -569,6 +918,7 @@ public class StyleElements
 		}
 	}
 
+	/** Double element base class. */
 	public static abstract class DoubleElement implements StyleElement
 	{
 
@@ -578,17 +928,33 @@ public class StyleElements
 
 		private final String label;
 
+		/**
+		 * Creates a double element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public DoubleElement( final String label )
 		{
 			value = 0.;
 			this.label = label;
 		}
 
+		/**
+		 * Returns the current value.
+		 *
+		 * @return the value.
+		 */
 		public double getValue()
 		{
 			return value;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -600,10 +966,27 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Gets the current double value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract double get();
 
+		/**
+		 * Sets the double value.
+		 *
+		 * @param v
+		 *            the new value.
+		 */
 		public abstract void set( double v );
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< Double > set )
 		{
 			onSet.add( set );
@@ -618,12 +1001,23 @@ public class StyleElements
 		}
 	}
 
+	/** Integer element base class. */
 	public static abstract class IntElement implements StyleElement
 	{
 		private final BoundedValue value;
 
 		private final String label;
 
+		/**
+		 * Creates an integer element.
+		 *
+		 * @param label
+		 *            the label text.
+		 * @param rangeMin
+		 *            the minimum value.
+		 * @param rangeMax
+		 *            the maximum value.
+		 */
 		public IntElement( final String label, final int rangeMin, final int rangeMax )
 		{
 			final int currentValue = Math.max( rangeMin, Math.min( rangeMax, get() ) );
@@ -640,11 +1034,21 @@ public class StyleElements
 			this.label = label;
 		}
 
+		/**
+		 * Returns the bounded value model.
+		 *
+		 * @return the BoundedValue.
+		 */
 		public BoundedValue getValue()
 		{
 			return value;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -656,8 +1060,19 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Gets the current integer value.
+		 *
+		 * @return the current value.
+		 */
 		public abstract int get();
 
+		/**
+		 * Sets the integer value.
+		 *
+		 * @param v
+		 *            the new value.
+		 */
 		public abstract void set( int v );
 
 		@Override
@@ -668,17 +1083,29 @@ public class StyleElements
 		}
 	}
 
+	/** Colormap element base class. */
 	public static abstract class ColormapElement implements StyleElement
 	{
 		private final ArrayList< Consumer< Colormap > > onSet = new ArrayList<>();
 
 		private final String label;
 
+		/**
+		 * Creates a colormap element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public ColormapElement( final String label )
 		{
 			this.label = label;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -690,10 +1117,27 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Gets the current colormap.
+		 *
+		 * @return the current colormap.
+		 */
 		public abstract Colormap get();
 
+		/**
+		 * Sets the colormap.
+		 *
+		 * @param v
+		 *            the new colormap.
+		 */
 		public abstract void set( Colormap v );
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< Colormap > set )
 		{
 			onSet.add( set );
@@ -706,6 +1150,7 @@ public class StyleElements
 		}
 	}
 
+	/** Font element base class. */
 	public static abstract class FontElement implements StyleElement
 	{
 
@@ -715,16 +1160,32 @@ public class StyleElements
 
 		private final String label;
 
+		/**
+		 * Creates a font element.
+		 *
+		 * @param label
+		 *            the label text.
+		 */
 		public FontElement( final String label )
 		{
 			this.label = label;
 		}
 
+		/**
+		 * Returns the current font value.
+		 *
+		 * @return the font.
+		 */
 		public Font getValue()
 		{
 			return value;
 		}
 
+		/**
+		 * Returns the label text.
+		 *
+		 * @return the label.
+		 */
 		public String getLabel()
 		{
 			return label;
@@ -736,10 +1197,27 @@ public class StyleElements
 			visitor.visit( this );
 		}
 
+		/**
+		 * Gets the current font.
+		 *
+		 * @return the current font.
+		 */
 		public abstract Font get();
 
+		/**
+		 * Sets the font.
+		 *
+		 * @param font
+		 *            the new font.
+		 */
 		public abstract void set( Font font );
 
+		/**
+		 * Registers a consumer to be called when the value changes.
+		 *
+		 * @param set
+		 *            the consumer.
+		 */
 		public void onSet( final Consumer< Font > set )
 		{
 			onSet.add( set );
@@ -759,11 +1237,25 @@ public class StyleElements
 	 *
 	 */
 
+	/**
+	 * Creates a label linked to a LabelElement.
+	 *
+	 * @param element
+	 *            the label element.
+	 * @return a new JLabel.
+	 */
 	public static JLabel linkedLabel( final LabelElement element )
 	{
 		return new JLabel( element.getLabel() );
 	}
 
+	/**
+	 * Creates a colormap chooser linked to a ColormapElement.
+	 *
+	 * @param element
+	 *            the colormap element.
+	 * @return a new JComboBox of Colormaps.
+	 */
 	public static JComboBox< Colormap > linkedColormapChooser( final ColormapElement element )
 	{
 		final JComboBox< Colormap > cb = new JComboBox< Colormap >(
@@ -845,6 +1337,15 @@ public class StyleElements
 		}
 	}
 
+	/**
+	 * Creates a checkbox linked to a BooleanElement.
+	 *
+	 * @param element
+	 *            the boolean element.
+	 * @param label
+	 *            the checkbox label.
+	 * @return a new JCheckBox.
+	 */
 	public static JCheckBox linkedCheckBox( final BooleanElement element, final String label )
 	{
 		final JCheckBox checkbox = new JCheckBox( label, element.get() );
@@ -856,6 +1357,15 @@ public class StyleElements
 		return checkbox;
 	}
 
+	/**
+	 * Creates a color button linked to a ColorElement.
+	 *
+	 * @param element
+	 *            the color element.
+	 * @param colorChooser
+	 *            the color chooser dialog.
+	 * @return a new JButton with color icon.
+	 */
 	public static JButton linkedColorButton( final ColorElement element, final JColorChooser colorChooser )
 	{
 		final ColorIcon icon = new ColorIcon( element.getColor(), 16, 0 );
@@ -889,6 +1399,15 @@ public class StyleElements
 		return button;
 	}
 
+	/**
+	 * Creates a slider panel linked to an IntElement.
+	 *
+	 * @param element
+	 *            the integer element.
+	 * @param tfCols
+	 *            number of columns for the text field.
+	 * @return a new SliderPanel.
+	 */
 	public static SliderPanel linkedSliderPanel( final IntElement element, final int tfCols )
 	{
 		final SliderPanel slider = new SliderPanel( null, element.getValue(), 1 );
@@ -897,6 +1416,13 @@ public class StyleElements
 		return slider;
 	}
 
+	/**
+	 * Creates a spinner linked to an IntElement.
+	 *
+	 * @param element
+	 *            the integer element.
+	 * @return a new JSpinner.
+	 */
 	public static JSpinner linkedSpinner( final IntElement element )
 	{
 		final BoundedValue value = element.getValue();
@@ -911,11 +1437,32 @@ public class StyleElements
 		return spinner;
 	}
 
+	/**
+	 * Creates a slider panel linked to a BoundedDoubleElement.
+	 *
+	 * @param element
+	 *            the bounded double element.
+	 * @param tfCols
+	 *            number of columns for the text field.
+	 * @return a new SliderPanelDouble.
+	 */
 	public static SliderPanelDouble linkedSliderPanel( final BoundedDoubleElement element, final int tfCols )
 	{
 		return linkedSliderPanel( element, tfCols, 1. );
 	}
 
+	/**
+	 * Creates a slider panel linked to a BoundedDoubleElement with custom step
+	 * size.
+	 *
+	 * @param element
+	 *            the bounded double element.
+	 * @param tfCols
+	 *            number of columns for the text field.
+	 * @param stepSize
+	 *            the step size for the slider.
+	 * @return a new SliderPanelDouble.
+	 */
 	public static SliderPanelDouble linkedSliderPanel( final BoundedDoubleElement element, final int tfCols, final double stepSize )
 	{
 		final SliderPanelDouble slider = new SliderPanelDouble( null, element.getValue(), stepSize );
@@ -925,6 +1472,15 @@ public class StyleElements
 		return slider;
 	}
 
+	/**
+	 * Creates a spinner linked to an EnumElement.
+	 *
+	 * @param <E>
+	 *            the enum type.
+	 * @param element
+	 *            the enum element.
+	 * @return a new JSpinner.
+	 */
 	@SuppressWarnings( "unchecked" )
 	public static < E > JSpinner linkedSpinnerEnumSelector( final EnumElement< E > element )
 	{
@@ -941,6 +1497,15 @@ public class StyleElements
 		return spinner;
 	}
 
+	/**
+	 * Creates a combo box linked to an EnumElement.
+	 *
+	 * @param <E>
+	 *            the enum type.
+	 * @param element
+	 *            the enum element.
+	 * @return a new JComboBox.
+	 */
 	@SuppressWarnings( "unchecked" )
 	public static < E > JComboBox< E > linkedComboBoxEnumSelector( final EnumElement< E > element )
 	{
@@ -955,6 +1520,15 @@ public class StyleElements
 		return cb;
 	}
 
+	/**
+	 * Creates a combo box linked to a ListElement.
+	 *
+	 * @param <E>
+	 *            the element type.
+	 * @param element
+	 *            the list element.
+	 * @return a new JComboBox.
+	 */
 	@SuppressWarnings( "unchecked" )
 	public static < E > JComboBox< E > linkedComboBoxSelector( final ListElement< E > element )
 	{
@@ -1033,6 +1607,13 @@ public class StyleElements
 		return ftf;
 	}
 
+	/**
+	 * Creates a text field linked to a StringElement.
+	 *
+	 * @param element
+	 *            the string element.
+	 * @return a new JTextField.
+	 */
 	public static JTextField linkedTextField( final StringElement element )
 	{
 		final JTextField tf = new JTextField( element.get() );
@@ -1056,6 +1637,15 @@ public class StyleElements
 		return tf;
 	}
 
+	/**
+	 * Creates a font selection button linked to a FontElement.
+	 *
+	 * @param element
+	 *            the font element.
+	 * @param parent
+	 *            the parent window for the font dialog.
+	 * @return a new JButton.
+	 */
 	public static JButton linkedFontButton( final FontElement element, final Window parent )
 	{
 		final JButton btn = new JButton( "Select font" );

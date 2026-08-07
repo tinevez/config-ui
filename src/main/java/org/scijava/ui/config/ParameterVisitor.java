@@ -47,41 +47,91 @@ import org.scijava.ui.config.Parameters.StringParam;
  */
 public interface ParameterVisitor
 {
+	/**
+	 * Visits a boolean parameter.
+	 *
+	 * @param booleanParam
+	 *            the parameter to visit
+	 */
 	default void visit( final BooleanParam booleanParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a string parameter.
+	 *
+	 * @param stringParam
+	 *            the parameter to visit
+	 */
 	default void visit( final StringParam stringParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a double parameter.
+	 *
+	 * @param doubleParam
+	 *            the parameter to visit
+	 */
 	default void visit( final DoubleParam doubleParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits an integer parameter.
+	 *
+	 * @param intParam
+	 *            the parameter to visit
+	 */
 	default void visit( final IntParam intParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a choice parameter.
+	 *
+	 * @param choiceParam
+	 *            the parameter to visit
+	 */
 	default void visit( final ChoiceParam choiceParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits an enum parameter.
+	 *
+	 * @param <E>
+	 *            enum type
+	 * @param enumParam
+	 *            the parameter to visit
+	 */
 	default < E extends Enum< E > > void visit( final EnumParam< E > enumParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a path parameter.
+	 *
+	 * @param pathParam
+	 *            the parameter to visit
+	 */
 	default void visit( final PathParam pathParam )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a selectable parameters option item.
+	 *
+	 * @param selectable
+	 *            the parameter to visit
+	 */
 	default void visit( final SelectableParameters selectable )
 	{
 		throw new UnsupportedOperationException();

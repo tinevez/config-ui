@@ -38,29 +38,47 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
+/**
+ * Utility class providing standard icons for the UI.
+ */
 public class Icons
 {
 
+	/** Prevent instantiation of utility class. */
+	private Icons()
+	{}
+
+	/** Default size for icons in pixels. */
 	public static int DEFAULT_ICON_SIZE = 16;
 
+	/** Reload icon. */
 	public static final ImageIcon RELOAD = get( "cached" );
 
+	/** The display current configuration icon. */
 	public static final ImageIcon COMMENT = get( "comment" );
 
+	/** Help icon. */
 	public static final ImageIcon HELP = get( "help_outline" );
 
+	/** The run process icon. */
 	public static final ImageIcon PLAY = get( "play_circle_filled_white" );
 
+	/** Stop process icon. */
 	public static final ImageIcon STOP = get( "stop" );
 
+	/** Reset parameters icon. */
 	public static final ImageIcon RESET = get( "settings_backup_restore" );
 
+	/** Store parameters icon. */
 	public static final ImageIcon STORE = get( "turned_in_not" );
 
+	/** Preview icon. */
 	public static final ImageIcon PREVIEW = get( "preview" );
 
+	/** Stop preview icon. */
 	public static final ImageIcon STOP_PREVIEW = get( "preview_off" );
 
+	/** Font selection icon. */
 	public static final ImageIcon FONT_SELECT = get( "type_specimen_64dp_1F1F1F_FILL0_wght400_GRAD0_opsz48" );
 
 	private static ImageIcon get( final String name )

@@ -63,6 +63,20 @@ import com.google.gson.reflect.TypeToken;
 public class JSon
 {
 
+	/** Prevent instantiation of utility class. */
+	private JSon()
+	{}
+
+	/**
+	 * Deserializes a configurator from a JSON file.
+	 * 
+	 * @param <C>
+	 *            configurator type
+	 * @param path
+	 *            path to the JSON file
+	 * @param configurator
+	 *            the configurator to populate with data read from JSon.
+	 */
 	public static < C extends Configurator > void deserialize( final String path, final C configurator )
 	{
 		try
@@ -121,6 +135,16 @@ public class JSon
 		configurator.getSelectables().forEach( s -> s.accept( visitor ) );
 	}
 
+	/**
+	 * Serializes a configurator to a JSON file.
+	 * 
+	 * @param <C>
+	 *            configurator type
+	 * @param path
+	 *            path to the JSON file
+	 * @param configurator
+	 *            the configurator to serialize
+	 */
 	public static < C extends Configurator > void serialize( final String path, final C configurator )
 	{
 		final String str = toJson( configurator );
@@ -147,6 +171,15 @@ public class JSon
 		}
 	}
 
+	/**
+	 * Converts a configurator to a JSON string.
+	 * 
+	 * @param <C>
+	 *            configurator type
+	 * @param configurator
+	 *            the configurator to serialize
+	 * @return JSON string representation
+	 */
 	public static < C extends Configurator > String toJson( final C configurator )
 	{
 		final Map< String, Object > valuesMap = new HashMap<>();

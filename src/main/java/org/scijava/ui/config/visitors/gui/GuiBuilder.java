@@ -790,7 +790,8 @@ public class GuiBuilder implements ParameterVisitor
 	 * There is no title nor help.
 	 *
 	 * @param config
-	 * @return
+	 *            the configurator to build a panel for
+	 * @return the built panel
 	 */
 	public static ConfigPanel build( final Configurator config )
 	{
@@ -920,6 +921,9 @@ public class GuiBuilder implements ParameterVisitor
 	 * INNER CLASSES.
 	 */
 
+	/**
+	 * Panel containing the configured UI elements.
+	 */
 	public class ConfigPanel extends JPanel
 	{
 
@@ -933,11 +937,19 @@ public class GuiBuilder implements ParameterVisitor
 
 		private static final long serialVersionUID = 1L;
 
+		/** Refreshes all UI elements in the panel. */
 		public void refresh()
 		{
 			elements.values().forEach( e -> e.update() );
 		}
 
+		/**
+		 * Returns the style element for the given key.
+		 *
+		 * @param key
+		 *            the parameter key.
+		 * @return the style element, or null if not found.
+		 */
 		public StyleElement getStyleElement( final String key )
 		{
 			return elements.get( key );

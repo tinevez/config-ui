@@ -47,6 +47,10 @@ import org.scijava.ui.config.Parameters.Parameter;
 public class Strings
 {
 
+	/** Prevent instantiation of utility class. */
+	private Strings()
+	{}
+
 	private static final String H = "─";
 
 	private static final String V = "│";
@@ -68,8 +72,9 @@ public class Strings
 	/**
 	 * Print the configuration as a simple list of name=value pairs, one per
 	 * line.
-	 * 
+	 *
 	 * @param config
+	 *            the configuration to print.
 	 * @return a string representation of the configuration.
 	 */
 	public static String toString( final Configurator config )
@@ -112,7 +117,8 @@ public class Strings
 		// Keep Parameter handles aligned with rows (same order)
 		final List< Parameter< ?, ? > > rowParams = new ArrayList<>();
 
-		// Map: parameter -> true if selected, false if in selectable but not selected
+		// Map: parameter -> true if selected, false if in selectable but not
+		// selected
 		final IdentityHashMap< Parameter< ?, ? >, Boolean > selectableState = new IdentityHashMap<>();
 
 		// Track whether a parameter appears in a group.
@@ -157,7 +163,8 @@ public class Strings
 				currentGroupName = null;
 		}
 
-		// Compute column width for the "name" column (with indentation when in a group)
+		// Compute column width for the "name" column (with indentation when in
+		// a group)
 		int nameWidth = 0;
 		for ( int i = 0; i < rows.size(); i++ )
 		{
@@ -190,8 +197,8 @@ public class Strings
 				valueWidth = value.length();
 		}
 
-
-		// Widest group header (ensure table is at least as wide as the longest group label)
+		// Widest group header (ensure table is at least as wide as the longest
+		// group label)
 		int groupHeaderWidth = 0;
 		final HashSet< String > groupsSeen = new HashSet<>( groupHeaders );
 		for ( final String g : groupsSeen )

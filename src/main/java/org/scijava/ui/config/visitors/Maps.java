@@ -39,8 +39,15 @@ import org.scijava.ui.config.Configurator;
 import org.scijava.ui.config.Configurator.SelectableParameters;
 import org.scijava.ui.config.Parameters.Parameter;
 
+/**
+ * Utility class for map operations on configurators.
+ */
 public class Maps
 {
+
+	/** Prevent instantiation of utility class. */
+	private Maps()
+	{}
 
 	/**
 	 * Convert a Configurator to a Map of key to value.
@@ -62,7 +69,7 @@ public class Maps
 	 * Fills the specified Configurator with the values from the specified Map,
 	 * by matching the keys of the Map to the keys of the Configurator's
 	 * parameters.
-	 * 
+	 *
 	 * @param map
 	 *            the Map containing the keys and values to set in the
 	 *            Configurator.

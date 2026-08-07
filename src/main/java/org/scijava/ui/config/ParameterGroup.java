@@ -40,12 +40,20 @@ import org.scijava.ui.config.Parameters.Parameter;
 
 /**
  * Holds an ordered list of parameters, and possibly sub-groups of parameters.
+ * This is used in the UIs to display a group of parameters together, and to
+ * allow the user to fold or unfold the group in the UI for better readability.
  * <p>
  * Has fields to store a name, help text and sets whether the group is folded or
  * not when displayed in a UI.
  */
 public class ParameterGroup implements Iterable< Parameter< ?, ? > >
 {
+
+	/**
+	 * Creates a new parameter group.
+	 */
+	ParameterGroup()
+	{}
 
 	private String name = toString();
 

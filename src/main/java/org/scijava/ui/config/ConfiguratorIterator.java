@@ -70,11 +70,12 @@ public class ConfiguratorIterator implements Iterator< Parameter< ?, ? > >
 	/**
 	 * Creates a new iterator for the specified configurator.
 	 * <p>
-	 * The iterator yields all parameters in display order: standalone parameters
-	 * and all parameters within groups (empty groups are skipped). Note that
-	 * {@link Configurator.SelectableParameters} groups themselves are not yielded
-	 * as elements; only their member parameters are iterated. The iterator does
-	 * not filter based on selection state or parameter visibility.
+	 * The iterator yields all parameters in display order: standalone
+	 * parameters and all parameters within groups (empty groups are skipped).
+	 * Note that {@link Configurator.SelectableParameters} groups themselves are
+	 * not yielded as elements; only their member parameters are iterated. The
+	 * iterator does not filter based on selection state or parameter
+	 * visibility.
 	 *
 	 * @param configurator
 	 *            the configurator to iterate over.

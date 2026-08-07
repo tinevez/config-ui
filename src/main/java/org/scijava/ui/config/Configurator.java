@@ -253,8 +253,9 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	}
 
 	/**
-	 * Represents a group of parameters where only one can be selected at a time.
-	 * This is used to create mutually exclusive parameter choices in the UI.
+	 * Represents a group of parameters where only one can be selected at a
+	 * time. This is used to create mutually exclusive parameter choices in the
+	 * UI.
 	 */
 	public static class SelectableParameters
 	{
@@ -726,8 +727,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	}
 
 	/**
-	 * Builder for adding a parameter that accepts a value from a discrete list of
-	 * choices.
+	 * Builder for adding a parameter that accepts a value from a discrete list
+	 * of choices.
 	 */
 	protected class ChoiceAdder extends ParamAdder< ChoiceParam, ChoiceAdder, String >
 	{
@@ -860,7 +861,8 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	}
 
 	/**
-	 * Builder for adding a parameter that accepts a value from a Java enum type.
+	 * Builder for adding a parameter that accepts a value from a Java enum
+	 * type.
 	 *
 	 * @param <E>
 	 *            the type of the enum.
@@ -902,7 +904,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 			return arg;
 		}
 	}
-	
+
 	/**
 	 * Builder for creating a group of mutually exclusive parameters.
 	 */
@@ -914,9 +916,13 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		/**
 		 * Adds a parameter to this selectable group.
 		 *
+		 * @param <T>
+		 *            parameter type
+		 * @param <O>
+		 *            value type
 		 * @param param
-		 *            the parameter to add.
-		 * @return this adder.
+		 *            the parameter to add
+		 * @return this adder
 		 */
 		public < T extends Parameter< T, O >, O > SelectableParamAdder add( final T param )
 		{
@@ -949,9 +955,13 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		/**
 		 * Adds a parameter to this group.
 		 *
+		 * @param <T>
+		 *            parameter type
+		 * @param <O>
+		 *            value type
 		 * @param param
-		 *            the parameter to add.
-		 * @return this adder.
+		 *            the parameter to add
+		 * @return this adder
 		 */
 		public < T extends Parameter< T, O >, O > GroupAdder add( final T param )
 		{
@@ -1113,13 +1123,13 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		while ( it.hasNext() )
 		{
 			final Parameter< ?, ? > param = it.next();
-			if (it.groupEntered())
+			if ( it.groupEntered() )
 			{
 				str.append( "> -----------------------\n" );
 				str.append( "> " + it.getCurrentGroup() );
 				str.append( "> -----------------------\n" );
 			}
-			if (it.groupExited())
+			if ( it.groupExited() )
 			{
 				str.append( "> -----------------------\n" );
 			}

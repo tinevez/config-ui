@@ -40,8 +40,15 @@ package org.scijava.ui.config.visitors.gui.elements;
  */
 public interface StyleElement
 {
+	/** Updates the element's UI component. */
 	default void update()
 	{}
 
+	/**
+	 * Accepts a visitor to dispatch to the appropriate visit method.
+	 *
+	 * @param visitor
+	 *            the visitor
+	 */
 	void accept( StyleElementVisitor visitor );
 }

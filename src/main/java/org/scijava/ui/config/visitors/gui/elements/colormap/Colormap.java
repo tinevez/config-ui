@@ -53,23 +53,25 @@ public class Colormap implements Serializable
 
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 
+	/** The lower bound of the colormap range. */
 	private final double lowerBound;
 
+	/** The upper bound of the colormap range. */
 	private final double upperBound;
 
+	/** The map of positions to colors. */
 	private final TreeMap< Double, Color > colors = new TreeMap<>();
 
+	/** The default color for out-of-range values. */
 	private final Color defaultColor;
 
 	/*
 	 * INNER CLASSES
 	 */
 
-
-
 	/**
-	 * An {@link Colormap} that maps a typical "Jet" colormap going
-	 * from blue to red to the range [0, 1].
+	 * An {@link Colormap} that maps a typical "Jet" colormap going from blue to
+	 * red to the range [0, 1].
 	 */
 	public static final Colormap Jet;
 	static
@@ -85,8 +87,7 @@ public class Colormap implements Serializable
 	}
 
 	/**
-	 * An {@link Colormap} that replicates the matplotlib "Viridis"
-	 * colormap.
+	 * An {@link Colormap} that replicates the matplotlib "Viridis" colormap.
 	 */
 	public static final Colormap Viridis;
 	static
@@ -121,6 +122,7 @@ public class Colormap implements Serializable
 	 */
 	public static final Colormap Turbo;
 
+	/** The name of this colormap. */
 	private final String name;
 	static
 	{
@@ -330,7 +332,6 @@ public class Colormap implements Serializable
 			ips.add( key, colors.get( key ) );
 		return ips;
 	}
-
 
 	/**
 	 * Main method for debugging purposes. Prints the names of all available

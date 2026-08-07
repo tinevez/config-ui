@@ -49,8 +49,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+/**
+ * Utility class for GUI operations.
+ */
 public class GuiUtils
 {
+
+	/** Prevent instantiation of utility class. */
+	private GuiUtils()
+	{}
 
 	private static final FocusListener selectAllFocusListener = new FocusListener()
 	{
@@ -69,17 +76,38 @@ public class GuiUtils
 		}
 	};
 
+	/**
+	 * Adds a focus listener that selects all text in the field when focused.
+	 * 
+	 * @param tf
+	 *            the text field to modify
+	 */
 	public static final void selectAllOnFocus( final JTextField tf )
 	{
 		tf.addFocusListener( selectAllFocusListener );
 	}
 
+	/**
+	 * Sets the font for all components in a panel.
+	 * 
+	 * @param panel
+	 *            the panel containing components
+	 * @param font
+	 *            the font to apply
+	 */
 	public static final void setFont( final JComponent panel, final Font font )
 	{
 		for ( final Component c : panel.getComponents() )
 			c.setFont( font );
 	}
 
+	/**
+	 * Checks if a string is likely a URL.
+	 * 
+	 * @param s
+	 *            the string to check
+	 * @return true if the string starts with http://, https://, or file:
+	 */
 	public static boolean isLikelyUrl( final String s )
 	{
 		if ( s == null )
@@ -88,6 +116,14 @@ public class GuiUtils
 		return t.startsWith( "http://" ) || t.startsWith( "https://" ) || t.startsWith( "file:" );
 	}
 
+	/**
+	 * Opens a URL in the default browser, or shows a dialog if not supported.
+	 * 
+	 * @param url
+	 *            the URL to open
+	 * @param parent
+	 *            the parent component for error dialogs
+	 */
 	public static void openInBrowser( final String url, final Component parent )
 	{
 		try

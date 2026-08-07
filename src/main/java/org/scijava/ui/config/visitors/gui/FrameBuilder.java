@@ -69,8 +69,8 @@ import org.scijava.ui.config.visitors.gui.GuiBuilder.ConfigPanel;
 
 /**
  * Builds a {@link JFrame} containing a configuration UI for a
- * {@link Configurator}, along with action buttons (Run, Preview, Store,
- * Reload, Reset, Help) and a progress bar.
+ * {@link Configurator}, along with action buttons (Run, Preview, Store, Reload,
+ * Reset, Help) and a progress bar.
  *
  * @param <C>
  *            the type of configurator.

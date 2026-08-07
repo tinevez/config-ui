@@ -54,61 +54,137 @@ import org.scijava.ui.config.visitors.gui.elements.StyleElements.StringElement;
  */
 public interface StyleElementVisitor
 {
+	/**
+	 * Visits a separator element.
+	 *
+	 * @param element
+	 *            the separator
+	 */
 	default void visit( final Separator element )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a label element.
+	 *
+	 * @param label
+	 *            the label element
+	 */
 	default void visit( final LabelElement label )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a color element.
+	 *
+	 * @param colorElement
+	 *            the color element
+	 */
 	default void visit( final ColorElement colorElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a boolean element.
+	 *
+	 * @param booleanElement
+	 *            the boolean element
+	 */
 	default void visit( final BooleanElement booleanElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a bounded double element.
+	 *
+	 * @param doubleElement
+	 *            the bounded double element
+	 */
 	default void visit( final BoundedDoubleElement doubleElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a double element.
+	 *
+	 * @param doubleElement
+	 *            the double element
+	 */
 	default void visit( final DoubleElement doubleElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits an integer element.
+	 *
+	 * @param intElement
+	 *            the integer element
+	 */
 	default void visit( final IntElement intElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits an enum element.
+	 *
+	 * @param <E>
+	 *            the enum type
+	 * @param enumElement
+	 *            the enum element
+	 */
 	default < E > void visit( final EnumElement< E > enumElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a colormap element.
+	 *
+	 * @param element
+	 *            the colormap element
+	 */
 	default void visit( final ColormapElement element )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a string element.
+	 *
+	 * @param stringElement
+	 *            the string element
+	 */
 	default void visit( final StringElement stringElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a list element.
+	 *
+	 * @param <E>
+	 *            the element type
+	 * @param listElement
+	 *            the list element
+	 */
 	default < E > void visit( final ListElement< E > listElement )
 	{
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Visits a font element.
+	 *
+	 * @param element
+	 *            the font element
+	 */
 	default void visit( final FontElement element )
 	{
 		throw new UnsupportedOperationException();

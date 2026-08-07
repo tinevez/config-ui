@@ -34,8 +34,25 @@ package org.scijava.ui.config.utils;
 
 import java.util.Iterator;
 
+/**
+ * Utility class for string operations.
+ */
 public class StringUtils
 {
+
+	/** Prevent instantiation of utility class. */
+	private StringUtils()
+	{}
+
+	/**
+	 * Joins an array of objects into a single string with separators.
+	 *
+	 * @param array
+	 *            the array to join.
+	 * @param separator
+	 *            the separator string.
+	 * @return the joined string.
+	 */
 	public static String join( final Object[] array, String separator )
 	{
 		if ( array == null )
@@ -53,6 +70,15 @@ public class StringUtils
 		return sb.toString();
 	}
 
+	/**
+	 * Joins an iterable of objects into a single string with separators.
+	 *
+	 * @param iterable
+	 *            the iterable to join.
+	 * @param separator
+	 *            the separator string.
+	 * @return the joined string.
+	 */
 	public static String join( final Iterable< ? > iterable, final String separator )
 	{
 		if ( iterable == null )
@@ -60,6 +86,15 @@ public class StringUtils
 		return join( iterable.iterator(), separator );
 	}
 
+	/**
+	 * Joins an iterator of objects into a single string with separators.
+	 *
+	 * @param iterator
+	 *            the iterator to join.
+	 * @param separator
+	 *            the separator string.
+	 * @return the joined string.
+	 */
 	public static String join( final Iterator< ? > iterator, String separator )
 	{
 		if ( iterator == null )

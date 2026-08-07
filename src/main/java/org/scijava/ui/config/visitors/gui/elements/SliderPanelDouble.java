@@ -73,8 +73,10 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 
 	private RangeListener rangeListener;
 
+	/** Listener interface for range change notifications. */
 	public interface RangeListener
 	{
+		/** Called when the slider range has changed. */
 		void rangeChanged();
 	}
 
@@ -168,6 +170,12 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 		model.setUpdateListener( this );
 	}
 
+	/**
+	 * Sets a custom decimal format pattern for the spinner display.
+	 *
+	 * @param pattern
+	 *            the format pattern, or null to use automatic formatting.
+	 */
 	public void setDecimalFormat( final String pattern )
 	{
 		if ( pattern == null )
@@ -182,6 +190,12 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 		}
 	}
 
+	/**
+	 * Sets the number of columns for the spinner text field.
+	 *
+	 * @param cols
+	 *            the number of columns.
+	 */
 	public void setNumColummns( final int cols )
 	{
 		( ( JSpinner.NumberEditor ) spinner.getEditor() ).getTextField().setColumns( cols );
@@ -234,6 +248,12 @@ public class SliderPanelDouble extends JPanel implements BoundedValueDouble.Upda
 
 	}
 
+	/**
+	 * Sets a listener to be notified when the slider range changes.
+	 *
+	 * @param listener
+	 *            the listener to notify.
+	 */
 	public void setRangeListener( final RangeListener listener )
 	{
 		this.rangeListener = listener;

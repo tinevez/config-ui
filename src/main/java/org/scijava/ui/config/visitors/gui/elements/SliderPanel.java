@@ -55,6 +55,7 @@ public class SliderPanel extends JPanel implements BoundedValue.UpdateListener
 {
 	private static final long serialVersionUID = 6444334522127424416L;
 
+	/** Preferred size for slider panels. */
 	public static final Dimension PANEL_SIZE = new Dimension( 150, 20 );
 
 	private final JSlider slider;
@@ -141,6 +142,12 @@ public class SliderPanel extends JPanel implements BoundedValue.UpdateListener
 		model.setUpdateListener( this );
 	}
 
+	/**
+	 * Sets the number of columns for the spinner text field.
+	 *
+	 * @param cols
+	 *            the number of columns.
+	 */
 	public void setNumColummns( final int cols )
 	{
 		( ( JSpinner.NumberEditor ) spinner.getEditor() ).getTextField().setColumns( cols );

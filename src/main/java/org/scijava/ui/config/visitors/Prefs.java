@@ -51,6 +51,10 @@ import org.scijava.ui.config.Parameters.StringParam;
 public class Prefs
 {
 
+	/** Prevent instantiation of utility class. */
+	private Prefs()
+	{}
+
 	/**
 	 * Saves the values of the specified Configurator to the PrefService.
 	 * 

@@ -41,12 +41,16 @@ import org.scijava.ui.config.utils.StringUtils;
  * Container class for parameter types used by {@link Configurator}.
  * <p>
  * This class defines various parameter types such as {@link BooleanParam},
- * {@link IntParam}, {@link DoubleParam}, {@link StringParam}, {@link PathParam},
- * {@link ChoiceParam}, and {@link EnumParam}, as well as the base classes
- * {@link Parameter} and {@link BoundedValueParameter}.
+ * {@link IntParam}, {@link DoubleParam}, {@link StringParam},
+ * {@link PathParam}, {@link ChoiceParam}, and {@link EnumParam}, as well as the
+ * base classes {@link Parameter} and {@link BoundedValueParameter}.
  */
 public class Parameters
 {
+
+	/** Prevent instantiation of utility class. */
+	private Parameters()
+	{}
 
 	/**
 	 * Base class for parameters.
@@ -82,6 +86,11 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		/**
+		 * Returns the units of this parameter.
+		 *
+		 * @return the units.
+		 */
 		public String getUnits()
 		{
 			return units;
@@ -93,6 +102,11 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		/**
+		 * Returns the default value of this parameter.
+		 *
+		 * @return the default value.
+		 */
 		public O getDefaultValue()
 		{
 			return defaultValue;
@@ -141,6 +155,11 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		/**
+		 * Returns whether this parameter is visible in UIs.
+		 *
+		 * @return true if visible, false otherwise.
+		 */
 		public boolean isVisible()
 		{
 			return visible;
@@ -175,6 +194,13 @@ public class Parameters
 			return ( T ) this;
 		}
 
+		/**
+		 * Sets the update listener for this parameter.
+		 *
+		 * @param updateListener
+		 *            the listener to notify of changes.
+		 * @return the parameter.
+		 */
 		T updateListener( final UpdateListener updateListener )
 		{
 			this.updateListener = updateListener;
@@ -410,6 +436,14 @@ public class Parameters
 			}
 		}
 
+		/**
+		 * Sets the selected choice by index.
+		 *
+		 * @param selected
+		 *            the index of the choice to select.
+		 * @throws IllegalArgumentException
+		 *             if the index is out of range.
+		 */
 		public void set( final int selected )
 		{
 			if ( selected < 0 || selected >= choices.size() )
@@ -482,6 +516,11 @@ public class Parameters
 			visitor.visit( this );
 		}
 
+		/**
+		 * Returns the class of the enum type.
+		 *
+		 * @return the enum class.
+		 */
 		public Class< E > getEnumClass()
 		{
 			return enumClass;

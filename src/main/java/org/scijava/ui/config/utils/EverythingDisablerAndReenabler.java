@@ -147,8 +147,8 @@ final public class EverythingDisablerAndReenabler
 	}
 
 	/**
-	 * Returns whether {@link #disable()} has been called and not yet followed by
-	 * a call to {@link #reenable()}.
+	 * Returns whether {@link #disable()} has been called and not yet followed
+	 * by a call to {@link #reenable()}.
 	 *
 	 * @return {@code true} if the components are currently disabled,
 	 *         {@code false} otherwise.
