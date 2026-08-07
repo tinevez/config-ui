@@ -42,6 +42,8 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.Icon;
 
 /**
+ * A simple icon that draws a colored rounded square.
+ * <p>
  * Adapted from http://stackoverflow.com/a/3072979/230513
  */
 public class ColorIcon implements Icon
@@ -56,6 +58,16 @@ public class ColorIcon implements Icon
 
 	private final int pad;
 
+	/**
+	 * Creates a color icon with the specified color, size, and padding.
+	 *
+	 * @param color
+	 *            the color of the icon.
+	 * @param size
+	 *            the size of the icon in pixels.
+	 * @param pad
+	 *            the padding around the icon.
+	 */
 	public ColorIcon( final Color color, final int size, final int pad )
 	{
 		this.color = color;
@@ -63,11 +75,25 @@ public class ColorIcon implements Icon
 		this.pad = pad;
 	}
 
+	/**
+	 * Creates a color icon with the specified color and size.
+	 *
+	 * @param color
+	 *            the color of the icon.
+	 * @param size
+	 *            the size of the icon in pixels.
+	 */
 	public ColorIcon( final Color color, final int size )
 	{
 		this( color, size, DEFAULT_PAD );
 	}
 
+	/**
+	 * Creates a color icon with the specified color and default size.
+	 *
+	 * @param color
+	 *            the color of the icon.
+	 */
 	public ColorIcon( final Color color )
 	{
 		this( color, DEFAUL_SIZE );
@@ -85,6 +111,12 @@ public class ColorIcon implements Icon
 		g2d.draw( shape );
 	}
 
+	/**
+	 * Sets the color of this icon.
+	 *
+	 * @param color
+	 *            the new color.
+	 */
 	public void setColor( final Color color )
 	{
 		this.color = color;

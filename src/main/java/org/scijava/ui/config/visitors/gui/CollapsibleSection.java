@@ -50,6 +50,10 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+/**
+ * A collapsible section panel that can contain a body of components and be
+ * toggled expanded or collapsed by clicking on the title arrow.
+ */
 public class CollapsibleSection extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -60,6 +64,17 @@ public class CollapsibleSection extends JPanel
 
 	private boolean expanded;
 
+	/**
+	 * Creates a new collapsible section.
+	 *
+	 * @param title
+	 *            the title displayed in the section header.
+	 * @param font
+	 *            the font used for the title.
+	 * @param collapsed
+	 *            if <code>true</code>, the section starts in a collapsed state;
+	 *            otherwise, it starts expanded.
+	 */
 	public CollapsibleSection( final String title, final Font font, final boolean collapsed )
 	{
 		super( new BorderLayout() );
