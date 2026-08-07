@@ -9,6 +9,16 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: 'Create a GitHub release with JAR artifact'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   build:
@@ -40,7 +50,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, 'SNAPSHOT'))
+    if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, 'SNAPSHOT')) || (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true')
 
     steps:
       - uses: actions/checkout@v4
@@ -52,22 +62,24 @@ jobs:
           distribution: 'zulu'
           cache: 'maven'
 
-      - name: Get version from pom.xml
-        id: version
+      - name: Get project info from pom.xml
+        id: project
         run: |
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "artifact_id=$ARTIFACT_ID" >> $GITHUB_OUTPUT
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Project version: $VERSION"
+          echo "Project: $ARTIFACT_ID version: $VERSION"
 
       - name: Check if release version
         id: check
         run: |
-          if [[ "${{ steps.version.outputs.version }}" != *"-SNAPSHOT" ]]; then
+          if [[ "${{ steps.project.outputs.version }}" != *"-SNAPSHOT" ]]; then
             echo "is_release=true" >> $GITHUB_OUTPUT
-            echo "This is a release version: ${{ steps.version.outputs.version }}"
+            echo "This is a release version: ${{ steps.project.outputs.version }}"
           else
             echo "is_release=false" >> $GITHUB_OUTPUT
-            echo "This is a SNAPSHOT version: ${{ steps.version.outputs.version }}"
+            echo "This is a SNAPSHOT version: ${{ steps.project.outputs.version }}"
           fi
 
       - name: Build JAR for release
@@ -78,17 +90,17 @@ jobs:
         if: steps.check.outputs.is_release == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.version.outputs.version }}
-          name: Release ${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.project.outputs.artifact_id }}-${{ steps.project.outputs.version }}
+          name: ${{ steps.project.outputs.artifact_id }} ${{ steps.project.outputs.version }}
           body: |
-            Release of Config-UI version ${{ steps.version.outputs.version }}
+            Release of ${{ steps.project.outputs.artifact_id }} version ${{ steps.project.outputs.version }}
 
             ## Changes
             See the commit history for details.
 
             ## Artifacts
-            - `config-ui-${{ steps.version.outputs.version }}.jar` - The main library JAR
-          files: target/config-ui-${{ steps.version.outputs.version }}.jar
+            - `${{ steps.project.outputs.artifact_id }}-${{ steps.project.outputs.version }}.jar` - The main library JAR
+          files: target/${{ steps.project.outputs.artifact_id }}-${{ steps.project.outputs.version }}.jar
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
