@@ -330,8 +330,7 @@ public class GuiBuilder implements ParameterVisitor
 		addToLayoutTwoLines(
 				arg.getHelp(),
 				new JLabel( element.getLabel() ),
-				linkedTextField( element ),
-				arg );
+				linkedTextField( element ) );
 	}
 
 	@Override
@@ -356,8 +355,7 @@ public class GuiBuilder implements ParameterVisitor
 		addPathToLayout(
 				arg.getHelp(),
 				new JLabel( element.getLabel() ),
-				linkedTextField( element ),
-				arg );
+				linkedTextField( element ) );
 	}
 
 	@Override
@@ -513,7 +511,7 @@ public class GuiBuilder implements ParameterVisitor
 	 * UI STUFF.
 	 */
 
-	private void addToLayoutTwoLines( final String help, final JLabel lbl, final JComponent comp, final Parameter< ?, ? > arg )
+	private void addToLayoutTwoLines( final String help, final JLabel lbl, final JComponent comp )
 	{
 		final JPanel target = inGroup ? groupBody : panel;
 		final GridBagConstraints CC = inGroup ? gc : c;
@@ -571,7 +569,7 @@ public class GuiBuilder implements ParameterVisitor
 		}
 	}
 
-	private void addPathToLayout( final String help, final JLabel lbl, final JTextField tf, final Parameter< ?, ? > arg )
+	private void addPathToLayout( final String help, final JLabel lbl, final JTextField tf )
 	{
 		final JPanel target = inGroup ? groupBody : panel;
 		final GridBagConstraints CC = inGroup ? gc : c;

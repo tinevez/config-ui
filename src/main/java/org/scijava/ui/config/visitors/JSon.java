@@ -32,7 +32,6 @@
  */
 package org.scijava.ui.config.visitors;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -66,10 +65,9 @@ public class JSon
 
 	public static < C extends Configurator > void deserialize( final String path, final C configurator )
 	{
-		try (FileReader reader = new FileReader( path ))
+		try
 		{
-			final String str = Files.lines( Paths.get( path ) )
-					.collect( Collectors.joining( System.lineSeparator() ) );
+			final String str = Files.lines( Paths.get( path ) ).collect( Collectors.joining( System.lineSeparator() ) );
 			fromJson( str, configurator );
 		}
 		catch ( final IOException e )
