@@ -96,12 +96,8 @@ jobs:
           body: |
             Release of ${{ steps.project.outputs.artifact_id }} version ${{ steps.project.outputs.version }}
 
-            ## Changes
-            See the commit history for details.
-
             ## Artifacts
             - `${{ steps.project.outputs.artifact_id }}-${{ steps.project.outputs.version }}.jar` - The main library JAR
           files: target/${{ steps.project.outputs.artifact_id }}-${{ steps.project.outputs.version }}.jar
-          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
