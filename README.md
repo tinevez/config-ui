@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/tinevez/config-ui/actions/workflows/build.yml/badge.svg)](https://github.com/tinevez/config-ui/actions/workflows/build.yml)
+
 # Config-UI
 
 A Java library to facilitate building user interfaces for configuring algorithms.
