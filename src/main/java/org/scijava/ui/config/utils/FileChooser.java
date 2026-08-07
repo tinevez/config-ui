@@ -44,20 +44,56 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * A utility class for opening file chooser dialogs. It automatically selects
+ * between {@link JFileChooser} and {@link java.awt.FileDialog} based on the
+ * platform, unless explicitly overridden.
+ */
 public class FileChooser
 {
+	/**
+	 * Flag to force the use of {@link JFileChooser} instead of the native
+	 * {@link java.awt.FileDialog}. By default, this is {@code false} on macOS
+	 * and {@code true} on other platforms.
+	 */
 	public static boolean useJFileChooser = !isMac();
 
+	/**
+	 * Enumerates the type of file chooser dialog to display.
+	 */
 	public static enum DialogType
 	{
-		LOAD, SAVE
+		/** Open/load file dialog. */
+		LOAD,
+		/** Save file dialog. */
+		SAVE
 	}
 
+	/**
+	 * Enumerates the selection mode for the file chooser.
+	 */
 	public static enum SelectionMode
 	{
-		FILES_ONLY, DIRECTORIES_ONLY, FILES_AND_DIRECTORIES
+		/** Allow selection of files only. */
+		FILES_ONLY,
+		/** Allow selection of directories only. */
+		DIRECTORIES_ONLY,
+		/** Allow selection of both files and directories. */
+		FILES_AND_DIRECTORIES
 	}
 
+	/**
+	 * Opens a file chooser dialog with the specified parent, initial file, and
+	 * dialog type.
+	 *
+	 * @param parent
+	 *            the parent component.
+	 * @param selectedFile
+	 *            the initially selected file path, or {@code null}.
+	 * @param dialogType
+	 *            whether to open a load or save dialog.
+	 * @return the selected file, or {@code null} if the dialog was canceled.
+	 */
 	public static File chooseFile(
 			final Component parent,
 			final String selectedFile,
@@ -66,6 +102,22 @@ public class FileChooser
 		return chooseFile( parent, selectedFile, null, null, dialogType );
 	}
 
+	/**
+	 * Opens a file chooser dialog with the specified parent, initial file, file
+	 * filter, title, and dialog type.
+	 *
+	 * @param parent
+	 *            the parent component.
+	 * @param selectedFile
+	 *            the initially selected file path, or {@code null}.
+	 * @param fileFilter
+	 *            the file filter to apply, or {@code null}.
+	 * @param dialogTitle
+	 *            the dialog title, or {@code null} for a default title.
+	 * @param dialogType
+	 *            whether to open a load or save dialog.
+	 * @return the selected file, or {@code null} if the dialog was canceled.
+	 */
 	public static File chooseFile(
 			final Component parent,
 			final String selectedFile,
@@ -76,6 +128,24 @@ public class FileChooser
 		return chooseFile( parent, selectedFile, fileFilter, dialogTitle, dialogType, SelectionMode.FILES_ONLY );
 	}
 
+	/**
+	 * Opens a file chooser dialog with the specified parent, initial file, file
+	 * filter, title, dialog type, and selection mode.
+	 *
+	 * @param parent
+	 *            the parent component.
+	 * @param selectedFile
+	 *            the initially selected file path, or {@code null}.
+	 * @param fileFilter
+	 *            the file filter to apply, or {@code null}.
+	 * @param dialogTitle
+	 *            the dialog title, or {@code null} for a default title.
+	 * @param dialogType
+	 *            whether to open a load or save dialog.
+	 * @param selectionMode
+	 *            what can be selected: files, directories, or both.
+	 * @return the selected file, or {@code null} if the dialog was canceled.
+	 */
 	public static File chooseFile(
 			final Component parent,
 			final String selectedFile,
@@ -87,6 +157,27 @@ public class FileChooser
 		return chooseFile( useJFileChooser, parent, selectedFile, fileFilter, dialogTitle, dialogType, selectionMode );
 	}
 
+	/**
+	 * Opens a file chooser dialog with full control over the dialog type, file
+	 * filter, title, selection mode, and whether to use JFileChooser.
+	 *
+	 * @param useJFileChooser
+	 *            if {@code true}, use {@link JFileChooser}; otherwise use
+	 *            {@link java.awt.FileDialog}.
+	 * @param parent
+	 *            the parent component.
+	 * @param selectedFile
+	 *            the initially selected file path, or {@code null}.
+	 * @param fileFilter
+	 *            the file filter to apply, or {@code null}.
+	 * @param dialogTitle
+	 *            the dialog title, or {@code null} for a default title.
+	 * @param dialogType
+	 *            whether to open a load or save dialog.
+	 * @param selectionMode
+	 *            what can be selected: files, directories, or both.
+	 * @return the selected file, or {@code null} if the dialog was canceled.
+	 */
 	public static File chooseFile(
 			boolean useJFileChooser,
 			final Component parent,

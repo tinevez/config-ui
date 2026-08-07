@@ -146,6 +146,13 @@ final public class EverythingDisablerAndReenabler
 		componentsToReenable.clear();
 	}
 
+	/**
+	 * Returns whether {@link #disable()} has been called and not yet followed by
+	 * a call to {@link #reenable()}.
+	 *
+	 * @return {@code true} if the components are currently disabled,
+	 *         {@code false} otherwise.
+	 */
 	public boolean disableHasBeenCalled()
 	{
 		return disableHasBeenCalled;
