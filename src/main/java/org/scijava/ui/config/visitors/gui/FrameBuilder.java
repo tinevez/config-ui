@@ -67,28 +67,73 @@ import org.scijava.ui.config.visitors.Prefs;
 import org.scijava.ui.config.visitors.Strings;
 import org.scijava.ui.config.visitors.gui.GuiBuilder.ConfigPanel;
 
+/**
+ * Builds a {@link JFrame} containing a configuration UI for a
+ * {@link Configurator}, along with action buttons (Run, Preview, Store,
+ * Reload, Reset, Help) and a progress bar.
+ *
+ * @param <C>
+ *            the type of configurator.
+ */
 public final class FrameBuilder< C extends Configurator >
 {
+	/**
+	 * A task to be executed when the user clicks the Run button. The task
+	 * receives a {@link Progress} object to report progress and check for
+	 * cancellation.
+	 */
 	@FunctionalInterface
 	public interface UserTask
 	{
+		/**
+		 * Executes the task.
+		 *
+		 * @param progress
+		 *            the progress reporter.
+		 * @throws Exception
+		 *             if the task fails.
+		 */
 		void run( ConfigFrame.Progress progress ) throws Exception;
 	}
 
+	/** The configurator providing the parameters and UI structure. */
 	protected final C config;
 
+	/** The task to execute when the user clicks Run. */
 	protected final UserTask task;
 
+	/** Action to store the current configuration. */
 	protected final Runnable onStore;
 
+	/** Action to reload the configuration from preferences. */
 	protected final Runnable onReload;
 
+	/** Action to reset parameters to default values. */
 	protected final Runnable onReset;
 
+	/** Action to display the current configuration (e.g., print to console). */
 	protected final Runnable onDisplay;
 
+	/** The frame containing the configuration UI. */
 	protected final ConfigFrame frame;
 
+	/**
+	 * Creates a new FrameBuilder with the specified configurator, task, and
+	 * action callbacks.
+	 *
+	 * @param config
+	 *            the configurator providing parameters.
+	 * @param task
+	 *            the task to run when the user clicks Run, or {@code null}.
+	 * @param onStore
+	 *            action to store the configuration, or {@code null}.
+	 * @param onReload
+	 *            action to reload the configuration, or {@code null}.
+	 * @param onReset
+	 *            action to reset to defaults, or {@code null}.
+	 * @param onDisplay
+	 *            action to display the configuration, or {@code null}.
+	 */
 	protected FrameBuilder(
 			final C config,
 			final UserTask task,
@@ -136,6 +181,11 @@ public final class FrameBuilder< C extends Configurator >
 		frame.setLocationByPlatform( true );
 	}
 
+	/**
+	 * Returns the configured frame containing the configuration UI.
+	 *
+	 * @return the configuration frame.
+	 */
 	public ConfigFrame get()
 	{
 		return frame;
@@ -473,41 +523,93 @@ public final class FrameBuilder< C extends Configurator >
 		helpFrame.setVisible( true );
 	}
 
+	/**
+	 * The configuration frame containing the parameter UI, action buttons, and
+	 * progress bar.
+	 */
 	public static class ConfigFrame extends JFrame
 	{
+		/** Panel for preview run/stop buttons. */
 		public JPanel previewRunStop;
 
+		/** Stop preview button. */
 		public JButton btnStopPreview;
 
+		/**
+		 * Interface for reporting task progress and checking for cancellation.
+		 */
 		public interface Progress
 		{
+			/**
+			 * Sets the progress fraction.
+			 *
+			 * @param fraction
+			 *            the progress fraction (0 to 1).
+			 */
 			void set( double fraction );
 
+			/**
+			 * Sets the progress fraction with a status message.
+			 *
+			 * @param fraction
+			 *            the progress fraction (0 to 1).
+			 * @param text
+			 *            the status message.
+			 */
 			void set( double fraction, String text );
 
+			/**
+			 * Sets the progress bar to indeterminate mode.
+			 *
+			 * @param on
+			 *            if {@code true}, show indeterminate progress.
+			 * @param text
+			 *            the status message.
+			 */
 			void indeterminate( boolean on, String text );
 
+			/**
+			 * Sets a status message without changing the progress value.
+			 *
+			 * @param text
+			 *            the status message.
+			 */
 			void message( String text );
 
+			/**
+			 * Clears the progress indicator and resets to the initial state.
+			 */
 			void clear();
 
+			/**
+			 * Checks whether the task has been canceled.
+			 *
+			 * @return {@code true} if canceled, {@code false} otherwise.
+			 */
 			boolean isCanceled();
 		}
 
+		/** Panel for run/stop buttons. */
 		public JPanel runStop;
 
 		private static final long serialVersionUID = 1L;
 
+		/** Disabler for all components during task execution. */
 		final EverythingDisablerAndReenabler disabler = new EverythingDisablerAndReenabler( this, new Class[] { JLabel.class, JProgressBar.class } );
 
+		/** The main configuration panel containing parameter UI elements. */
 		public ConfigPanel configPanel;
 
+		/** Stop button for canceling running tasks. */
 		public JButton btnStop;
 
+		/** Run button for executing the task. */
 		public JButton btnRun;
 
+		/** Preview button for previewing results. */
 		public JButton btnPreview;
 
+		/** Progress bar showing task execution progress. */
 		public JProgressBar progressBar;
 
 		private final AtomicBoolean canceled = new AtomicBoolean( false );
