@@ -194,7 +194,7 @@ frame.setLocationRelativeTo(null);
 frame.setVisible(true);
 ```
 
-<img src="doc/PanelShowingConfig.png" alt="PanelShowingConfig" style="zoom:50%;" />
+<img src="doc/PanelShowingConfig.png" alt="PanelShowingConfig" width="600" />
 
 The gray `?` buttons will display the help text of a parameter when clicked. 
 
@@ -235,18 +235,18 @@ ConfigFrame frame = FrameBuilder.build(config, task, defaultValues);
 frame.setVisible(true);
 ```
 
-<img src="doc/GuiWithUserTask.png" alt="GuiWithUserTask" style="zoom:50%;" />
+<img src="doc/GuiWithUserTask.png" alt="GuiWithUserTask" width="600" />
 
 The frame includes:
 
-- **Run button** <img src="src/main/resources/icons/play_circle_filled_white.png" alt="play_circle_filled_white" style="zoom:20%;" /> – Executes the task in a background thread with progress reporting 
-- **Stop button**<img src="src/main/resources/icons/stop.png" alt="stop" style="zoom:25%;" /> – Appears during execution for cancelable tasks, and calls the cancelation method (see below)
-- **Preview button** <img src="src/main/resources/icons/preview.png" alt="preview" style="zoom:8%;" /> – For previewable tasks (quick preview without full execution)
-- **Store button** <img src="src/main/resources/icons/turned_in_not.png" alt="turned_in_not" style="zoom:24%;" /> – Saves configuration to preferences
-- **Reload button** <img src="src/main/resources/icons/cached.png" alt="cached" style="zoom:24%;" /> – Loads configuration from preferences
-- **Reset button** <img src="src/main/resources/icons/settings_backup_restore.png" alt="settings_backup_restore" style="zoom:24%;" /> – Restores default values
-- **Help button** <img src="src/main/resources/icons/help_outline.png" alt="help_outline" style="zoom:24%;" /> – Opens the help URL or shows help text
-- **Text button** <img src="src/main/resources/icons/comment.png" alt="comment" style="zoom:24%;" /> - Outputs the current config to text
+- **Run button** <img src="src/main/resources/icons/play_circle_filled_white.png" alt="play_circle_filled_white" width="24" /> – Executes the task in a background thread with progress reporting 
+- **Stop button** <img src="src/main/resources/icons/stop.png" alt="stop" width="24" /> – Appears during execution for cancelable tasks, and calls the cancelation method (see below)
+- **Preview button** <img src="src/main/resources/icons/preview.png" alt="preview" width="24" /> – For previewable tasks (quick preview without full execution)
+- **Store button** <img src="src/main/resources/icons/turned_in_not.png" alt="turned_in_not" width="24" /> – Saves configuration to preferences
+- **Reload button** <img src="src/main/resources/icons/cached.png" alt="cached" width="24" /> – Loads configuration from preferences
+- **Reset button** <img src="src/main/resources/icons/settings_backup_restore.png" alt="settings_backup_restore" width="24" /> – Restores default values
+- **Help button** <img src="src/main/resources/icons/help_outline.png" alt="help_outline" width="24" /> – Opens the help URL or shows help text
+- **Text button** <img src="src/main/resources/icons/comment.png" alt="comment" width="24" /> - Outputs the current config to text
 - **A Progress bar** – Shows task progress with status messages
 
 ### Integrating Cancelable and Previewable
@@ -298,7 +298,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 		}
 ```
 
-<img src="doc/GuiWithCancelablePreviewableTask.png" alt="GuiWithCancelablePreviewableTask" style="zoom:50%;" />
+<img src="doc/GuiWithCancelablePreviewableTask.png" alt="GuiWithCancelablePreviewableTask" width="600" />
 
 ## Advanced Features
 
@@ -341,7 +341,7 @@ public class MyAdvancedConfig extends MyAlgorithmConfig {
 }
 ```
 
-<img src="doc/GuiWithParameterGroup.png" alt="GuiWithParameterGroup" style="zoom:50%;" />
+<img src="doc/GuiWithParameterGroup.png" alt="GuiWithParameterGroup" width="600" />
 
 ### Mutually Exclusive Parameters
 
@@ -382,7 +382,7 @@ public class MyModelConfig extends Configurator {
 }
 ```
 
-<img src="doc/GuiWithSelectableParameters.png" alt="GuiWithSelectableParameters" style="zoom:50%;" />
+<img src="doc/GuiWithSelectableParameters.png" alt="GuiWithSelectableParameters" width="600" />
 
 In the GUI, this creates radio buttons. Only the selected parameter's value is used when iterating over parameters or serializing.
 
@@ -416,7 +416,7 @@ public class MyMeasurementConfig extends Configurator {
 }
 ```
 
-<img src="doc/GuiWithTranslation.png" alt="GuiWithTranslation" style="zoom:50%;" />
+<img src="doc/GuiWithTranslation.png" alt="GuiWithTranslation" width="600" />
 
 When the user enters `13 µm`, the parameter internally stores `65.0` (pixels). The table representation shows the translated value:
 
