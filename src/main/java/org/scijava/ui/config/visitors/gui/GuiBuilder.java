@@ -6,18 +6,18 @@
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this
  *    list of conditions and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 
+ *
  * 3. Neither the name of the Institut Pasteur nor the names of its contributors
  *    may be used to endorse or promote products derived from this software without
  *    specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -51,7 +51,9 @@ import static org.scijava.ui.config.visitors.gui.elements.StyleElements.listElem
 import static org.scijava.ui.config.visitors.gui.elements.StyleElements.stringElement;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.FontMetrics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -471,7 +473,7 @@ public class GuiBuilder implements ParameterVisitor
 		}
 		else
 		{
-			b.setToolTipText( help );
+			b.setToolTipText( formatToolTip( help, b ) );
 			// Click to make the tooltip appear.
 			b.addMouseListener( new MouseAdapter()
 			{
@@ -564,8 +566,9 @@ public class GuiBuilder implements ParameterVisitor
 
 		if ( help != null )
 		{
-			lbl.setToolTipText( help );
-			comp.setToolTipText( help );
+			final String tt = formatToolTip( help, comp );
+			lbl.setToolTipText( tt );
+			comp.setToolTipText( tt );
 		}
 	}
 
@@ -636,9 +639,10 @@ public class GuiBuilder implements ParameterVisitor
 
 		if ( help != null )
 		{
-			lbl.setToolTipText( help );
-			tf.setToolTipText( help );
-			browseButton.setToolTipText( help );
+			final String tt = formatToolTip( help, tf );
+			lbl.setToolTipText( tt );
+			tf.setToolTipText( tt );
+			browseButton.setToolTipText( tt );
 		}
 	}
 
@@ -697,8 +701,9 @@ public class GuiBuilder implements ParameterVisitor
 
 		if ( help != null )
 		{
-			lbl.setToolTipText( help );
-			comp.setToolTipText( help );
+			final String tt = formatToolTip( help, comp );
+			lbl.setToolTipText( tt );
+			comp.setToolTipText( tt );
 		}
 	}
 
@@ -764,10 +769,20 @@ public class GuiBuilder implements ParameterVisitor
 
 		if ( help != null )
 		{
-			lbl.setToolTipText( help );
-			comp.setToolTipText( help );
-			lblUnits.setToolTipText( help );
+			final String tt = formatToolTip( help, comp );
+			lbl.setToolTipText( tt );
+			comp.setToolTipText( tt );
+			lblUnits.setToolTipText( tt );
 		}
+	}
+
+	private static String formatToolTip( final String help, final Component c )
+	{
+		final FontMetrics fontMetrics = c.getFontMetrics( c.getFont() );
+		final int length = fontMetrics.stringWidth( help );
+		if ( length < 350 )
+			return help;
+		return "<html><p width=\"350px\">" + help + "</p></html>\"";
 	}
 
 	private void addLastRow()
