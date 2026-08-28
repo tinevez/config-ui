@@ -6,18 +6,18 @@
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this
  *    list of conditions and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 
+ *
  * 3. Neither the name of the Institut Pasteur nor the names of its contributors
  *    may be used to endorse or promote products derived from this software without
  *    specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,6 +42,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+
+import javax.swing.ImageIcon;
 
 import org.scijava.ui.config.Parameters.BooleanParam;
 import org.scijava.ui.config.Parameters.BoundedValueParameter;
@@ -115,7 +117,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 
 	/**
 	 * Creates a new configurator with the specified name and help text.
-	 * 
+	 *
 	 * @param name
 	 *            the name.
 	 * @param help
@@ -158,15 +160,15 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 *
 	 * @return the main icon.
 	 */
-	public Image getIcon()
+	public ImageIcon getIcon()
 	{
-		return icons.isEmpty() ? null : icons.get( 0 );
+		return icons.isEmpty() ? null : new ImageIcon( icons.get( 0 ) );
 	}
 
 	/**
-	 * Returns the list of icons to use in a UI. The first icon will be used as
-	 * the main icon, and the others will be used as alternative icons for
-	 * different sizes.
+	 * Returns the list of icons to use in a UI, as {@link Image}s. The first
+	 * icon will be used as the main icon, and the others will be used as
+	 * alternative icons for different sizes.
 	 *
 	 * @return the list of icons. May be empty if no icon was set.
 	 */
@@ -216,7 +218,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	/**
 	 * Returns the map of translators that will be applied to the value before
 	 * displaying it in the UI.
-	 * 
+	 *
 	 * @return the map of forward translators.
 	 */
 	public Map< Parameter< ?, ? >, Function< ?, ? > > getForwardUITranslators()
@@ -399,7 +401,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 
 	/**
 	 * Base class for builders that can add parameters to this configurator.
-	 * 
+	 *
 	 * @param <A>
 	 *            the type of parameter this builder creates.
 	 * @param <T>
@@ -459,7 +461,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 
 	/**
 	 * Base class for builders that can add parameters to this configurator.
-	 * 
+	 *
 	 * @param <A>
 	 *            the type of parameter this builder creates.
 	 * @param <T>
@@ -972,7 +974,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 		/**
 		 * Set whether the group is folded (collapsed, default) or unfolded
 		 * (expanded) when displayed in a UI.
-		 * 
+		 *
 		 * @param collapsed
 		 *            whether the group is collapsed when displayed in a UI.
 		 * @return this group adder.
@@ -1072,7 +1074,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * Adds an enum parameter to the config, via a builder. Such parameters can
 	 * accept a series of discrete values, that are the values of the specified
 	 * enum class.
-	 * 
+	 *
 	 * @param <E>
 	 *            the type of the enum values.
 	 * @param enumClass
@@ -1087,7 +1089,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	/**
 	 * Adds a group of parameters to the config, via a builder. Such groups are
 	 * used to group parameters together in the UI.
-	 * 
+	 *
 	 * @param name
 	 *            the name of the group.
 	 * @return a new group builder.
@@ -1175,7 +1177,7 @@ public abstract class Configurator implements Iterable< Parameter< ?, ? > >
 	 * list of parameters. This is used to control the order of parameters in
 	 * the UI and in the iteration order. The index is 0-based, and must be
 	 * between 0 and the number of parameters - 1.
-	 * 
+	 *
 	 * @param param
 	 *            the parameter to reorder.
 	 * @param index
